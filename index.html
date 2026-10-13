@@ -601,7 +601,7 @@
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* project cards */
-  .card { border-radius: var(--radius); background: var(--glass); backdrop-filter: blur(6px); }
+  .card { border-radius: var(--radius); background: var(--glass); }
   .thumb { border-radius: 14px; }
   .tag { border-radius: 999px; padding: 4px 11px; }
   #editor .card:hover, #engineer .card:hover { transform: translateY(-6px); }
@@ -736,15 +736,18 @@
   .js-reveal [data-rv]:not(.rv-in) { opacity: 0; translate: 0 34px; }
   .js-reveal [data-rv="left"]:not(.rv-in) { translate: -42px 0; }
   .js-reveal [data-rv="pop"]:not(.rv-in) { translate: 0 24px; scale: .94; }
-  .js-reveal [data-rv="band"]:not(.rv-in) { translate: 0 0; clip-path: inset(0 100% 0 0); }
+  .js-reveal [data-rv="band"]:not(.rv-in) { opacity: 1; translate: 0 0; }
   .js-reveal [data-rv].rv-in { animation: rvIn .9s cubic-bezier(.16,1,.3,1) both; animation-delay: var(--rv-d, 0s); }
   .js-reveal [data-rv="left"].rv-in { animation-name: rvLeft; }
   .js-reveal [data-rv="pop"].rv-in { animation-name: rvPop; }
-  .js-reveal [data-rv="band"].rv-in { animation-name: rvBand; animation-duration: 1.2s; }
+  .js-reveal [data-rv="band"].rv-in { animation: none; }
   @keyframes rvIn { from { opacity: 0; translate: 0 34px; } to { opacity: 1; translate: 0 0; } }
   @keyframes rvLeft { from { opacity: 0; translate: -42px 0; } to { opacity: 1; translate: 0 0; } }
   @keyframes rvPop { from { opacity: 0; translate: 0 24px; scale: .94; } to { opacity: 1; translate: 0 0; scale: 1; } }
-  @keyframes rvBand { from { opacity: 0; clip-path: inset(0 100% 0 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+  /* ribbons: a cover in the page colour wipes away (a clip-path on the ribbon itself would hide it from the scroll observer) */
+  .band { position: relative; }
+  .band::after { content: ''; position: absolute; inset: 0; z-index: 2; background: var(--bg); transform: scaleX(0); transform-origin: 100% 50%; pointer-events: none; transition: transform 1.3s cubic-bezier(.77,0,.18,1) var(--rv-d, 0s); }
+  .js-reveal .band[data-rv]:not(.rv-in)::after { transform: scaleX(1); transition: none; }
   /* timeline: the line draws itself, the dots pop in */
   .edu-grid::before { transform-origin: top; transition: transform 1.5s cubic-bezier(.16,1,.3,1); }
   .js-reveal .edu-grid:not(.rv-line)::before { transform: scaleY(0); }
@@ -2018,12 +2021,13 @@
   function reveal(el, i){
     el.style.setProperty('--rv-d', Math.min(i * 0.08, 0.64).toFixed(2) + 's');
     el.classList.add('rv-in');
+    if (el.getAttribute('data-rv') === 'band') setTimeout(function(){ el.removeAttribute('data-rv'); el.classList.remove('rv-in'); el.style.removeProperty('--rv-d'); }, 1900);
   }
   var io = new IntersectionObserver(function(entries){
     var vis = entries.filter(function(e){ return e.isIntersecting; })
       .sort(function(a, b){ return (a.target.compareDocumentPosition(b.target) & 4) ? -1 : 1; });
     vis.forEach(function(e, i){ reveal(e.target, i); io.unobserve(e.target); });
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  }, { threshold: 0.1, rootMargin: '0px' });
   document.querySelectorAll('[data-rv]').forEach(function(el){ io.observe(el); });
 
   // timeline line draws when the list scrolls into view
