@@ -883,7 +883,7 @@
   @media (max-width: 760px) { .fx-blob { filter: blur(54px); } .fx-dots { opacity: .4; } }
   @media (prefers-reduced-motion: reduce) { .fx-blob { animation: none; } .fx-mesh { transition: none; translate: none; } }
 
-  /* ================= HEAD POP-OUT: tool icons burst out of the top of the head (auto on every banner, or hover / tap the head) ================= */
+  /* ================= HEAD POP-OUT: tool icons burst out of the top of the head (only on hover / tap / keyboard focus; the "Hover my head" hint is always shown) ================= */
   .hero-portrait { --cut: 12.6%; --ph-c: #3ee6cf; --hx0: 53.3; }
   header.hero:not(.is-ai) .hero-portrait { --ph-c: #ffa24c; }
   /* the load animation must not keep holding its end state (it kept a clipped drop-shadow on the image) */
@@ -910,16 +910,15 @@
 
   .ph-hot { position: absolute; z-index: 5; left: 33cqw; top: 0; width: 41cqw; height: 42cqw; border-radius: 42% 42% 26% 26%; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   .ph-hot:focus-visible { outline: 2px dashed color-mix(in srgb, var(--ph-c) 80%, #fff); outline-offset: 4px; }
-  .ph-hint { position: absolute; z-index: 5; left: 1cqw; top: 3cqw; display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #fff; pointer-events: none;
-    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transform: translateY(6px); animation: phHintIn .7s ease 3.2s forwards, phHintOut .6s ease 11s forwards; transition: opacity .3s; }
+  .ph-hint { position: absolute; z-index: 0; left: auto; right: calc(100% - 48cqw); top: -3cqw; display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #fff; pointer-events: none;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 1; animation: phHintIn .7s ease .5s backwards; transition: opacity .3s ease; }
   .ph-hint svg { width: 14px; height: 14px; animation: phNudge 1.6s ease-in-out infinite; }
   .ph-hint .tap { display: none; }
   @media (hover: none) { .ph-hint .hov { display: none; } .ph-hint .tap { display: inline; } }
-  .ph-open .ph-hint, .ph-seen .ph-hint { animation: none; opacity: 0; }
-  @keyframes phHintIn { to { opacity: 1; transform: none; } }
-  @keyframes phHintOut { to { opacity: 0; transform: translateY(-4px); } }
+  .ph-open .ph-hint { opacity: 0; }
+  @keyframes phHintIn { from { opacity: 0; transform: translateY(6px); } }
   @keyframes phNudge { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -2px); } }
-  @media (max-width: 760px) { .ph-items { --k: .78; --ky: 1.2; } .ph-hint { left: 4cqw; } }
+  @media (max-width: 760px) { .ph-items { --k: .78; --ky: 1.2; } }
   @media (orientation: landscape) and (max-height: 520px) { .ph-item:nth-child(-n+2) { display: none; } .ph-hint { display: none; } }
   @media (prefers-reduced-motion: reduce) {
     .ph-item, .ph-open .ph-item { transition: opacity .2s ease; } .ph-in { animation: none; } .ph-hint { animation: none; opacity: 1; transform: none; }
@@ -1174,16 +1173,63 @@
   @media (max-width: 1339px) { .hero-portrait[data-pf="orbit"] .pf-orbit.o1 { scale: .94; } }
   @media (min-width: 1340px) and (max-width: 1379px) { .hero-portrait[data-pf="orbit"] .pf-orbit.o1 { scale: .97; } }
   @media (max-width: 760px) { .hero-portrait[data-pf="orbit"] .pf-orbit.o1, .hero-portrait[data-pf="orbit"] .pf-orbit.o2 { scale: 1; } }
-  /* small two-column windows (about 760-1100px): the portrait + its outer ring (128% of the portrait) must fit inside its own column, otherwise the ring runs over the intro text */
+  /* small two-column windows (about 760-1100px): a big portrait centred in its column; the rings keep the same shrink as on wider windows (equal gaps) so the outer ring only just clears the intro text */
   @media (min-width: 761px) and (max-width: 1099px) and (min-height: 521px) {
-    .hero-portrait { width: min(78%, 540px); justify-self: center; }
-    .hero-portrait[data-pf="orbit"] .pf-orbit.o1, .hero-portrait[data-pf="orbit"] .pf-orbit.o2 { scale: 1; }
+    .hero-portrait { width: min(92%, 540px); justify-self: center; }
   }
 
   /* ---- education card: repo link ---- */
   .edu-link { display: inline-block; margin-top: 14px; font-size: 13.5px; color: var(--accent); text-decoration: none; }
   .edu-link:hover, .edu-link:focus-visible { text-decoration: underline; text-underline-offset: 4px; outline: none; }
   @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .edu-link { color: color-mix(in srgb, var(--accent) 52%, #000); } }
+
+  /* ================= RESPONSIVE HARDENING (phones, tablets, laptops, large and ultra-wide screens) ================= */
+
+  /* no sideways page scroll, whatever overflows (clip does not create a scroll container, so fixed elements keep working) */
+  html, body { max-width: 100%; overflow-x: clip; }
+  /* stop iOS from inflating text when a phone is turned to landscape */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+  /* keep every section clear of notches and rounded corners in landscape */
+  .wrap {
+    padding-left: max(clamp(20px, 4vw, 56px), env(safe-area-inset-left, 0px));
+    padding-right: max(clamp(20px, 4vw, 56px), env(safe-area-inset-right, 0px));
+  }
+
+  /* grid tracks may shrink below their content (plain 1fr cannot, which pushed wide content past the screen edge) */
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cert-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .skill-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tool-grid { grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); }
+  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 1099px) { .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .grid, .skill-cols { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 600px) { .cert-grid { grid-template-columns: minmax(0, 1fr); } }
+
+  /* long words / names wrap instead of widening a card */
+  .edu-card h3, .cert-card h3, .tool h3, .cert-issuer, .edu-points li, .tool p { overflow-wrap: anywhere; }
+
+  /* project viewer: use the real visible height on phones (address bar) ... */
+  @supports (height: 1dvh) {
+    .cv-panel { height: min(480px, 78dvh); }
+    @media (max-width: 900px) { .cv-panel { height: min(64dvh, 520px); } }
+  }
+  /* ... and on a phone turned sideways keep the two-column viewer instead of a tiny scrolling box */
+  @media (orientation: landscape) and (max-height: 520px) {
+    .cv-overlay { padding: 8px; }
+    .cv-panel { width: min(1120px, calc(100vw - 112px)); height: calc(100vh - 16px); border-radius: 12px; }
+    @supports (height: 1dvh) { .cv-panel { height: calc(100dvh - 16px); } }
+    .cv-slide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 16px; padding: 14px 18px; overflow: hidden; align-content: normal; }
+    .cv-right { overflow-y: auto; max-height: 100%; gap: 8px; }
+    .cv-left h3 { font-size: 17px; margin-top: 8px; }
+    .cv-right p { font-size: 13px; line-height: 1.45; }
+    .cv-close { top: 8px; right: 8px; width: 30px; height: 30px; }
+    .cv-nav.cv-prev { left: max(8px, env(safe-area-inset-left, 0px)); }
+    .cv-nav.cv-next { right: max(8px, env(safe-area-inset-right, 0px)); }
+  }
+
+  /* very large / ultra-wide screens: a little more room for the content */
+  @media (min-width: 2200px) { .wrap { max-width: 1760px; } }
 </style>
 </head>
 <body>
@@ -2530,25 +2576,14 @@
 
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var isTouch = !!(window.matchMedia && window.matchMedia('(hover: none)').matches);
-  var open = false, holding = false, closeT = 0, touchT = 0, autoOpenT = 0, autoCloseT = 0;
-  var INITIAL_DELAY = 2300, CHANGE_DELAY = 950, HOLD = 3800;
+  var open = false, holding = false, closeT = 0, touchT = 0;
   function render(v){ if (v === open) return; open = v; box.classList.toggle('ph-open', v); hot.setAttribute('aria-pressed', v ? 'true' : 'false'); }
   // manual control (hover, tap, keyboard)
   function setOpen(v){
-    clearTimeout(touchT); clearTimeout(autoCloseT); holding = v; render(v);
+    clearTimeout(touchT); holding = v; render(v);
     if (v) { box.classList.add('ph-seen'); if (isTouch) touchT = setTimeout(function(){ holding = false; render(false); }, 6000); }
   }
   function later(){ clearTimeout(closeT); closeT = setTimeout(function(){ setOpen(false); }, 450); }
-  // automatic show: on load and every time the banner changes
-  function heroVisible(){ var r = box.getBoundingClientRect(); return r.bottom > 140 && r.top < window.innerHeight * .8; }   // is the portrait actually on screen?
-  function autoShow(delay){
-    clearTimeout(autoOpenT); clearTimeout(autoCloseT); if (reduce) return;
-    autoOpenT = setTimeout(function(){
-      if (holding || document.hidden || !heroVisible()) return;
-      render(true);
-      autoCloseT = setTimeout(function(){ if (!holding) render(false); }, HOLD);
-    }, delay);
-  }
   hot.addEventListener('pointerenter', function(e){ if (e.pointerType === 'touch') return; clearTimeout(closeT); setOpen(true); });
   hot.addEventListener('pointerleave', function(e){ if (e.pointerType === 'touch') return; later(); });
   items.addEventListener('pointerover', function(){ clearTimeout(closeT); });
@@ -2558,16 +2593,8 @@
   hot.addEventListener('blur', function(){ setOpen(false); });
   hot.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open); } else if (e.key === 'Escape') setOpen(false); });
   document.addEventListener('pointerdown', function(e){ if (open && !box.contains(e.target)) setOpen(false); });
-  // every banner change: close, let the new icon set swap in, then play the opening on its own
-  document.addEventListener('herochange', function(){ clearTimeout(closeT); holding = false; render(false); autoShow(CHANGE_DELAY); });
-  autoShow(INITIAL_DELAY);
-  // on phones the portrait sits below the fold: play the opening the first time it scrolls into view
-  if ('IntersectionObserver' in window) {
-    var seenOnce = false, io = new IntersectionObserver(function(en){
-      if (en[0].isIntersecting && !seenOnce) { seenOnce = true; autoShow(700); io.disconnect(); }
-    }, { threshold: .6 });
-    io.observe(box);
-  }
+  // every banner change: close the icons so the new set swaps in (they only open on hover / tap / keyboard)
+  document.addEventListener('herochange', function(){ clearTimeout(closeT); holding = false; render(false); });
 })();
 
 </script>
