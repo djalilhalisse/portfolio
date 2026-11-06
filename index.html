@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Abdeldjalil Halisse — AI Engineer & Video Editor</title>
+<title>Abdeldjalil Halisse - AI Engineer & Video Editor</title>
+<meta name="description" content="Portfolio of Abdeldjalil Halisse: AI engineer and data analyst, and freelance video editor in Annaba, Algeria. Machine-learning projects, dashboards and video editing work.">
+<meta name="theme-color" content="#0A0A0C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Abdeldjalil Halisse - AI Engineer &amp; Video Editor">
+<meta property="og:description" content="Portfolio of Abdeldjalil Halisse: AI engineer and data analyst, and freelance video editor in Annaba, Algeria. Machine-learning projects, dashboards and video editing work.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Abdeldjalil Halisse - AI Engineer &amp; Video Editor">
+<meta name="twitter:description" content="Portfolio of Abdeldjalil Halisse: AI engineer and data analyst, and freelance video editor in Annaba, Algeria. Machine-learning projects, dashboards and video editing work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/img-2fed18f5ce.png">
 <style>
-/* ==========================================================================
-   MINIMALISM & SWISS STYLE DESIGN SYSTEM (portfolio-deploy06)
-   - Inspired by International Typographic Style (Muller-Brockmann, Hofmann)
-   - Strict mathematical grid, geometric hierarchy, grotesque typography
-   - Restrained high-contrast monochromatic base + dual-discipline Swiss accents
-   - 100% WCAG 2.2 AA / AAA contrast compliance across Dark & Light modes
-   ========================================================================== */
 
 :root {
   box-sizing: border-box;
@@ -24,7 +25,7 @@
   /* --- 1. Typography Tokens (Editorial Swiss Hybrid) --- */
   --display: 'Fraunces', Georgia, serif; /* Signature editorial headlines, name & numbers */
   --serif: 'Fraunces', Georgia, serif;   /* Warm editorial serif accents & ribbons */
-  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern, crisp, premium Swiss UI & body */
+  --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Clean editorial grotesque for UI & body; pairs with Fraunces + JetBrains Mono */
   --mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Precision engineering & metadata */
 
   /* --- 2. Modular Spacing Scale (8pt Swiss Grid) --- */
@@ -1172,6 +1173,17 @@ header.hero:not(.is-ai) .pf-vid {
   opacity: 1;
   visibility: visible;
   transform: none;
+  transition: none;   /* the entrance below is a keyframe animation; the fade-out above stays a transition */
+  animation: pfChipIn .8s cubic-bezier(.16, 1, .3, 1) var(--in-d, .35s) backwards;   /* backwards only: a forwards fill would block the fade-out transition */
+}
+
+/* the two chips arrive one after the other, once the previous slide's chips have faded out */
+.pf-chip { --in-d: .35s; }
+.pf-chip.pf-b { --in-d: .5s; }
+
+@keyframes pfChipIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* Interactive Head Items (Swiss Clean Popover) */
@@ -1210,6 +1222,13 @@ header.hero:not(.is-ai) .pf-vid {
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   pointer-events: none;
+  white-space: nowrap;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+
+.ph-open .ph-hint {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .ph-hint svg {
@@ -1225,8 +1244,8 @@ header.hero:not(.is-ai) .pf-vid {
   width: 0;
   height: 0;
   pointer-events: none;
-  --k: 1;
-  --ky: 1;
+  --s: max(34px, 10.5cqw);   /* icon size */
+  --cy: 17cqw;               /* vertical centre of the icon columns, level with the head */
 }
 
 .ph-set { display: none; }
@@ -1237,18 +1256,16 @@ header.hero:not(.is-ai) .ph-set.vid { display: block; }
   position: absolute;
   left: 0;
   top: 0;
-  width: calc(var(--sz, 10) * 1cqw);
-  height: calc(var(--sz, 10) * 1cqw);
-  min-width: 34px;
-  min-height: 34px;
-  margin: calc(var(--sz, 10) * -.5cqw) 0 0 calc(var(--sz, 10) * -.5cqw);
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) * -.5) 0 0 calc(var(--s) * -.5);
   scale: 0;
   opacity: 0;
   transition: translate .3s cubic-bezier(.5,0,1,.6), scale .25s ease-in, opacity .2s ease;
 }
 
 .ph-open .ph-item {
-  translate: calc(var(--tx) * var(--k) * 1cqw) calc((var(--ty) + 6) * var(--ky, 1) * 1cqw);
+  translate: calc(var(--tx) * var(--s)) calc(var(--ty) * var(--s) + var(--cy));   /* --tx/--ty are in icon sizes */
   scale: 1;
   opacity: 1;
   pointer-events: auto;
@@ -1276,6 +1293,12 @@ header.hero:not(.is-ai) .ph-set.vid { display: block; }
 .ph-ico svg {
   width: 52%;
   height: 52%;
+}
+
+.ph-logo {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;   /* the logo tiles bring their own rounded background; the square frame showed at the corners */
 }
 
 .ph-logo svg {
@@ -1586,7 +1609,8 @@ header.hero:not(.is-ai) .ph-set.vid { display: block; }
   padding-top: 14px;
 }
 
-.card .tag {
+.card .tag,
+.cv-tags .tag {   /* the modal copies the tags outside .card, so it needs its own selector */
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -2732,7 +2756,13 @@ a.cv-media.is-code::after {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
 }
+.cv-right::-webkit-scrollbar { width: 8px; }
+.cv-right::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 8px; }
+.cv-right::-webkit-scrollbar-track { background: transparent; }
 
 .cv-right p {
   color: var(--ink-dim);
@@ -2913,10 +2943,6 @@ a.cv-media.is-code::after {
     width: min(84%, 350px);
     margin-top: clamp(52px, 12vw, 76px);
   }
-  .ph-items {
-    --k: 0.9;
-    --ky: 0.78;
-  }
   .ph-hint {
     top: -1cqw;
   }
@@ -3051,23 +3077,46 @@ a.cv-media.is-code::after {
   .band-track, .cm-track, .status i, .pf-orbit, .pf-planet {
     animation: none !important;
   }
+  /* no auto-advancing hero: the progress bar must not "finish" instantly and flip the slide */
+  .hero-tab.active i { animation: none !important; width: 100%; }
+  .pf-chip { animation: none !important; }
   .rise, .portrait-img {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
 }
+
+  /* ---- optimizer additions ---- */
+  .skip-link { position: fixed; left: 12px; top: -64px; z-index: 300; padding: 10px 18px; border-radius: 999px; background: #fff; color: #14120F; font-weight: 600; text-decoration: none; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); transition: top .2s ease; }
+  .skip-link:focus { top: 12px; outline: 2px solid var(--teal, #3ee6cf); outline-offset: 2px; }
+  main:focus { outline: none; }
+  /* a link without a destination yet (repo URL not added) stays hidden; it appears on its own once an href is added */
+  .watch:not([href]), .cv-watch:not([href]) { display: none !important; }
+  /* small phones: the two floating hero chips used to overlap each other */
+  @media (max-width: 400px) {
+    .pf-chip { gap: 7px; padding: 5px 9px 5px 6px; }
+    .pf-chip .ic { width: 22px; height: 22px; }
+    .pf-chip .ic svg { width: 13px; height: 13px; }
+    .pf-chip small { font-size: .78em; }
+    [data-pf="orbit"] .pf-a { left: -4cqw; top: 62%; }
+    [data-pf="orbit"] .pf-b { right: -6cqw; top: 84%; }
+  }
+  /* heavy decorative animations pause while their section is off-screen */
+  .anim-off .fx-blob, .anim-off .pf-orbit, .anim-off .pf-planet, .anim-off .pf-chip, .anim-off .pf-chips, .anim-off .ph-in, .anim-off .pf-disc,
+  .anim-off .band-track, .anim-off .cm-track, .anim-off.fc, .anim-off .fc { animation-play-state: paused !important; }
 </style>
-<link rel="preload" as="image" href="assets/img-b74f6983fd.webp">
+<link rel="preload" as="image" type="image/webp" href="assets/img-b74f6983fd.webp" fetchpriority="high">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="lg-pr" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#00005B"/><rect x="1.4" y="1.4" width="45.2" height="45.2" rx="9.6" fill="none" stroke="#9999FF" stroke-width="1.7"/><text x="24" y="31.2" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="700" font-size="21" letter-spacing="-.6" fill="#9999FF">Pr</text></symbol><symbol id="lg-ae" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#00005B"/><rect x="1.4" y="1.4" width="45.2" height="45.2" rx="9.6" fill="none" stroke="#D291FF" stroke-width="1.7"/><text x="24" y="31.2" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="700" font-size="21" letter-spacing="-.6" fill="#D291FF">Ae</text></symbol><symbol id="lg-au" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#00005B"/><rect x="1.4" y="1.4" width="45.2" height="45.2" rx="9.6" fill="none" stroke="#00E4BB" stroke-width="1.7"/><text x="24" y="31.2" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="700" font-size="21" letter-spacing="-.6" fill="#00E4BB">Au</text></symbol><symbol id="lg-dv" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#161616"/><circle cx="24.00" cy="15.80" r="8" fill="#E8453C" style="mix-blend-mode:screen" opacity=".92"/><circle cx="31.80" cy="21.47" r="8" fill="#F6B91E" style="mix-blend-mode:screen" opacity=".92"/><circle cx="28.82" cy="30.63" r="8" fill="#4CBB5A" style="mix-blend-mode:screen" opacity=".92"/><circle cx="19.18" cy="30.63" r="8" fill="#2FA3E6" style="mix-blend-mode:screen" opacity=".92"/><circle cx="16.20" cy="21.47" r="8" fill="#8E6BF2" style="mix-blend-mode:screen" opacity=".92"/><circle cx="24" cy="24" r="3.6" fill="#161616"/></symbol><symbol id="lg-py" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><g transform="translate(7.2 7.2) scale(.7)"><path fill="#3776AB" d="M23.5 4C16 4 16.5 7.3 16.5 7.3v3.4H24v1.1H13.6S8.8 11.3 8.8 19s4.2 7.4 4.2 7.4h2.5v-3.6s-.2-4.2 4.1-4.2H27s4 .1 4-3.8V8.2S31.7 4 23.5 4z"/><circle cx="20" cy="8" r="1.4" fill="#fff"/><path fill="#FFC331" d="M24.5 44c7.5 0 7-3.3 7-3.3v-3.4H24v-1.1h10.4s4.8.5 4.8-7.2-4.2-7.4-4.2-7.4h-2.5v3.6s.2 4.2-4.1 4.2H21s-4-.1-4 3.8v6.6S16.3 44 24.5 44z"/><circle cx="28" cy="40" r="1.4" fill="#fff"/></g></symbol><symbol id="lg-php" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><ellipse cx="24" cy="24" rx="19.5" ry="10.5" fill="#777BB4"/><text x="24" y="28.6" text-anchor="middle" font-family="'Arial Black',Arial,Helvetica,sans-serif" font-weight="900" font-style="italic" font-size="13.5" letter-spacing="-.4" fill="#16161d">php</text></symbol><symbol id="lg-sql" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><path fill="#00758F" d="M11 14v20c0 3 5.8 5.4 13 5.4S37 37 37 34V14z"/><ellipse cx="24" cy="14" rx="13" ry="5.4" fill="#2FA0BC"/><path d="M11 22.2c0 3 5.8 5.4 13 5.4s13-2.4 13-5.4M11 29.6c0 3 5.8 5.4 13 5.4s13-2.4 13-5.4" fill="none" stroke="#F29111" stroke-width="2.1"/></symbol><symbol id="lg-bi" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><defs><linearGradient id="gbi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD84A"/><stop offset="1" stop-color="#F2C811"/></linearGradient></defs><rect x="10" y="26" width="8" height="13" rx="2.2" fill="#D9A400"/><rect x="20" y="17" width="8" height="22" rx="2.2" fill="#EDB500"/><rect x="30" y="8" width="8" height="31" rx="2.2" fill="url(#gbi)"/></symbol><symbol id="lg-sk" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><circle cx="28.5" cy="19.5" r="10.5" fill="none" stroke="#F7931E" stroke-width="5.2"/><circle cx="19.5" cy="28.5" r="10.5" fill="none" stroke="#fff" stroke-width="8.6"/><circle cx="19.5" cy="28.5" r="10.5" fill="none" stroke="#3499CD" stroke-width="5.2"/><path d="M24.2 20.2 A10.5 10.5 0 0 1 28.5 9" fill="none" stroke="#fff" stroke-width="0"/></symbol><symbol id="lg-pd" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><g fill="#150458"><rect x="12" y="9" width="6.5" height="13" rx="1.4"/><rect x="12" y="33" width="6.5" height="6" rx="1.4"/><rect x="20.8" y="6" width="6.5" height="36" rx="1.4"/><rect x="29.6" y="9" width="6.5" height="6" rx="1.4"/><rect x="29.6" y="26" width="6.5" height="13" rx="1.4"/></g><rect x="12" y="25" width="6.5" height="5.8" rx="1.4" fill="#FFCA00"/><rect x="20.8" y="19.5" width="6.5" height="6.5" rx="1.4" fill="#E70488"/><rect x="29.6" y="18" width="6.5" height="5.8" rx="1.4" fill="#E70488"/></symbol><symbol id="lg-mp" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fff"/><circle cx="24" cy="24" r="18.6" fill="none" stroke="#C8CED8" stroke-width="1.4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#E1E5EC" stroke-width="1"/><line x1="24" y1="24" x2="24.00" y2="13.00" stroke="#1f77b4" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="34.61" y2="13.39" stroke="#ff7f0e" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="33.00" y2="24.00" stroke="#2ca02c" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="35.31" y2="35.31" stroke="#d62728" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="24.00" y2="36.00" stroke="#9467bd" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="14.10" y2="33.90" stroke="#8c564b" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="16.00" y2="24.00" stroke="#e377c2" stroke-width="4.6" stroke-linecap="round"/><line x1="24" y1="24" x2="14.81" y2="14.81" stroke="#17becf" stroke-width="4.6" stroke-linecap="round"/><circle cx="24" cy="24" r="2.2" fill="#fff"/></symbol></defs></svg>
 
 
 <nav>
   <div class="wrap">
     <a href="#top" class="brand" aria-label="Back to top">
-      <img decoding="async" src="assets/img-a3b5a7b8de.png" alt="Logo" class="brand-logo"> 
+      <img decoding="async" width="58" height="30" src="assets/img-a3b5a7b8de.png" alt="Logo" class="brand-logo"> 
     </a>
     <div class="navlinks">
       <!-- <a href="#editor"><span class="lbl-full">Video Editing</span><span class="lbl-short">Video</span></a> -->
@@ -3082,8 +3131,8 @@ a.cv-media.is-code::after {
         <button type="button" data-lang="fr" aria-label="Français" lang="fr" title="Français"><span class="flag" aria-hidden="true"><svg viewBox="0 0 3 3" preserveAspectRatio="none"><rect width="1" height="3" fill="#0055A4"/><rect x="1" width="1" height="3" fill="#fff"/><rect x="2" width="1" height="3" fill="#EF4135"/></svg></span></button>
       </div>
       <div class="mode-toggle" role="group" aria-label="Accent focus">
-        <button class="active" data-mode="teal">AI & Data Analysis</button>
-        <button data-mode="amber">Video Editing</button>
+        <button type="button" class="active" data-mode="teal" aria-pressed="true">AI &amp; Data Analysis</button>
+        <button type="button" data-mode="amber" aria-pressed="false">Video Editing</button>
       </div>
     </div>
   </div>
@@ -3118,11 +3167,11 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
       <div class="hero-top rise" style="--d:0s"><span class="status"><i></i>Online now</span><div class="hero-social"><a class="soc" href="https://github.com/djalilhalisse" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61 -.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.809 1.305 3.495.998 .108-.776.417-1.305.76-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23 .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.922.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57 C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="soc" href="https://www.linkedin.com/in/abdeldjalil-halisse" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="#3B8DDB" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a class="soc" href="https://www.instagram.com/djalil_halisse" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="#E4405F" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a class="soc" href="https://wa.me/213549434425" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a></div></div>
       <p class="eyebrow rise" style="--d:.05s">Annaba, Algeria</p>
       <p class="hi rise" style="--d:.1s">Hi! I'm</p>
-      <div class="name-ai rise" style="--d:.15s">Abdeldjalil Halisse</div>
+      <div class="name-ai rise" style="--d:.15s" role="heading" aria-level="1">Abdeldjalil Halisse</div>
       <div class="roles rise" style="--d:.25s">
         <span class="role-pill engineer">AI Engineer &amp; Data Analyst</span>
       </div>
-      <p class="lede rise" style="--d:.35s">I build models and dashboards that make sense of data — from machine-learning pipelines to Power BI reporting. Master's-level training in artificial intelligence and information processing at Badji Mokhtar University, Annaba.</p>
+      <p class="lede rise" style="--d:.35s">I build models and dashboards that make sense of data - from machine-learning pipelines to Power BI reporting. Master's-level training in artificial intelligence and information processing at Badji Mokhtar University, Annaba.</p>
       <div class="hero-cta rise" style="--d:.4s"><a class="btn btn-primary" href="#engineer">See what I can do <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="https://github.com/djalilhalisse" target="_blank" rel="noopener">GitHub ↗</a></div>
       <div class="stat-row rise" style="--d:.45s">
         <div class="stat"><b>MSc</b><span>in Artificial Intelligence</span></div>
@@ -3132,7 +3181,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
     </div>
     <div class="hero-copy hero-slide" id="heroSlide1" role="tabpanel" aria-labelledby="heroTab1">
       <div class="hero-top rise" style="--d:0s"><span class="status"><i></i>Online now</span><div class="hero-social"><a class="soc" href="https://github.com/djalilhalisse" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61 -.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.809 1.305 3.495.998 .108-.776.417-1.305.76-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23 .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.922.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57 C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="soc" href="https://www.linkedin.com/in/abdeldjalil-halisse" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="#3B8DDB" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a class="soc" href="https://www.instagram.com/djalil_halisse" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="#E4405F" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a class="soc" href="https://wa.me/213549434425" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a></div></div>
-      <p class="eyebrow rise" style="--d:.05s">Annaba, Algeria — freelance since 2021</p>
+      <p class="eyebrow rise" style="--d:.05s">Annaba, Algeria - freelance since 2021</p>
       <p class="hi rise" style="--d:.1s">Hi! I'm</p>
       <h1 class="name rise" style="--d:.15s">Abdeldjalil Halisse</h1>
       <div class="roles rise" style="--d:.25s">
@@ -3154,11 +3203,12 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
       <div class="pf-orbit o2" aria-hidden="true"><i class="pf-slot" style="--a:125deg"><span class="pf-planet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span></i></div>
       <div class="pf-orbit o1" aria-hidden="true"><i class="pf-slot" style="--a:0deg"><span class="pf-planet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 6-3 12"/></svg></span></i><i class="pf-slot" style="--a:205deg"><span class="pf-planet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 10h4M3 14h4M17 10h4M17 14h4"/></svg></span></i></div>
             <div class="portrait-glow" aria-hidden="true"></div>
-      <img decoding="async" class="portrait-img" src="assets/img-b74f6983fd.webp" alt="Portrait of Abdeldjalil Halisse">
+      <img decoding="async" fetchpriority="high" width="701" height="717" class="portrait-img" src="assets/img-b74f6983fd.webp" alt="Portrait of Abdeldjalil Halisse">
       <div class="pf-chips"><div class="pf-chip pf-a pf-ai"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></span><span class="tx"><b>MSc</b><small>in Artificial Intelligence</small></span></div><div class="pf-chip pf-b pf-ai"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 6-3 12"/></svg></span><span class="tx"><b>Python</b><small>SQL &amp; Power BI</small></span></div><div class="pf-chip pf-a pf-vid"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 10h4M3 14h4M17 10h4M17 14h4"/></svg></span><span class="tx"><b>5+</b><small>years editing</small></span></div><div class="pf-chip pf-b pf-vid"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></svg></span><span class="tx"><b>200+</b><small>projects delivered</small></span></div><svg class="pf-badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pfCircle" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs><g class="pf-spin"><text font-size="10.6" font-weight="600" letter-spacing=".3" fill="currentColor"><textPath href="#pfCircle" textLength="291" lengthAdjust="spacing">AI ENGINEER • VIDEO EDITOR • DATA ANALYST • </textPath></text></g><circle cx="60" cy="60" r="26" fill="currentColor" opacity=".16"/><path d="M60 45l3.6 11.4L75 60l-11.4 3.6L60 75l-3.6-11.4L45 60l11.4-3.6z" fill="currentColor"/></svg></div>
     </div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
 <div class="band" aria-hidden="true"><div class="band-track"><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b><span>My Projects</span><b>✦</b></div></div>
 
@@ -3173,7 +3223,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
     <div class="grid" id="aiGrid">
       <div class="card" data-cat="mobile web data">
         <div class="thumb slideshow" style="aspect-ratio: 16/9; height: auto;"><span class="ss-slide active" style="background-image: url('assets/img-b33ba5cde8.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-ef93bf192d.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-876eab0d43.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-2aedebeb61.webp');"></span><div class="ss-dots"></div></div>
-        <h3>Qoffa — barcode shopping app with an AI assistant</h3>
+        <h3>Qoffa - barcode shopping app with an AI assistant</h3>
         <p>A mobile app for shopping in a hypermarket: scan barcodes and see a live total in dinars against the cash you carry. Built with React Native (Expo), a Node.js and SQLite server, a web dashboard for store managers, and an AI assistant that plans a shopping list for a budget.</p>
         <h4 class="part-title">AI shopping assistant</h4>
         <p class="extra">Shoppers type in plain words, in any of the app’s languages, and get a shopping list for their budget (for example 5,000 DA for three people for four days) or ideas to bring an over-budget cart back under it. The server calls Claude or Gemini, switchable from the admin dashboard, and every price comes from the store’s own catalog, so list totals match the shelf prices.</p>
@@ -3189,7 +3239,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
       </div>
       <div class="card" data-cat="web">
         <div class="thumb slideshow" style="aspect-ratio: 16/9; height: auto;"><span class="ss-slide active" style="background-image: url('assets/img-1cd90b1cdb.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-1925ce988d.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-14d570379a.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-91a565a5a5.webp');"></span><div class="ss-dots"></div></div>
-        <h3>Sahti — medical appointment booking platform</h3>
+        <h3>Sahti - medical appointment booking platform</h3>
         <p>My Bachelor's degree thesis project: a full-stack website where patients book appointments with doctors, with a database backing doctor schedules and bookings.</p>
         <a class="watch" href="https://github.com/djalilhalisse/Sahti_v2" target="_blank" rel="noopener">GitHub repo ↗</a>
         <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Web development</span></div>
@@ -3209,7 +3259,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
       </div>
       <div class="card" data-cat="desktop data">
         <div class="thumb slideshow" style="aspect-ratio: 16/9; height: auto;"><span class="ss-slide active" style="background-image: url('assets/img-9ecc036fde.svg');"></span><span class="ss-slide" style="background-image: url('assets/img-3dd3d858ea.webp');"></span><span class="ss-slide" style="background-image: url('assets/img-2abaf0ed79.webp');"></span><div class="ss-dots"></div></div>
-        <h3>Patient Records — vaccination data collection app</h3>
+        <h3>Patient Records - vaccination data collection app</h3>
         <p>A desktop app I built to collect patient vaccination data, now in use at EPSP Annaba. It adds, edits, searches and exports records, with form validation, a dashboard of totals and vaccine breakdowns, a medical-history checklist and dark/light mode. Records are saved to CSV files with atomic writes, so a crash can't corrupt the data.</p>
         <a class="watch" href="https://github.com/djalilhalisse/Patient-Records-App" target="_blank" rel="noopener">GitHub repo ↗</a>
         <div class="tags"><span class="tag">Python</span><span class="tag">PyQt5</span><span class="tag">CSV</span></div>
@@ -3244,51 +3294,51 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
         <button class="slider-btn" aria-label="Scroll left">‹</button>
         <div class="slider-track" id="channelTrack">
           <a class="channel-item" href="https://www.youtube.com/@MojoTravels" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-08c399a020.webp" 
             alt="Mojo Travels logo">
             <span>Mojo Travels</span>
           </a>
           <a class="channel-item" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener">
-            <img decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="data:image/webp;base64,UklGRgYDAABXRUJQVlA4IPoCAABwHgCdASoAAQABPm02mUkkIyKhIZqpCIANiWlu4XHhH8y/yvU6+m/i5Svv8PtGH9j6gHmO/YD9QOCgyVD9hvSqueJz8Y/CB818NurHuxDqVj3Yh1Kx7sQ6lY92IWSu1cAnL8neyprDj2U0nS3N8Nun3v5TSdLUeQ6lCDBNJU+UtbttDTXhFMsYceQ2z7sECt76wua8DKghDFRDAoFgHsx86Gn8K8DKgYm8oyqMypt9bSHUq5qFq9iM7mah/X4d//ufoZKFWpWPS1F7iM9kOpWNT5V5NjqVj3XWf/GN5fFjPuq4x7sQ6lY92IdSse7EOpWPdiHUrHuxDqVj0AAA/v9iyAAWeyyioNHXq7zuVvh3zSayOEnP4jvSxWMT9rjXREk8I9Ao5OhDyvnPo8QMk086Jf/6R/p7xt4zPe69ue+tuR27RZBLsnv9b/1VppWWI4fiNYsm3JlbLYWqQ7p8LJj7L0DlsN5lA8f8YXKrm9GN/9P2qG3R625B4gkuNFznPtN94S6HP8FVF0jcLLo97SQGLDU0zfCi89ndKtDsQIuRLh33mY/EYJ0k+zjEOpVXJ/7MEjjWMdjQbMF6o88DHed16y/s1YsyhfDk5gYEs//3+0Gw1N+8GMI/xi+d3c/jZzNqDlfnvT6Ep2Ce03YnUfomyDybGWPYtityU9eaRPPqwh39/7rW3d737cUdIn++0Wb9pqnoz0g/IXX9780VFDyir+xkuEQTaTKrgNP3/+UlD9zn2QD/7+0Qcrjo9k1N6S1kA7kyzAAXtD4ds9GIZ/u/OyvW8tEA+QoSoGOVHbWG1PqcWBAze9ExE64mqg/wdRR7g/kBbz2lCb9+TkOChkH2NWwhjGVvMgy1ev9Ch+Danxne7TCNI3/NHqF+3hIAJeZl1S79Zq/1aZ53GLs36u7cwmUlDb9/gyb8n19Gh/yyAtH1JOj98zWFm9unDvyTpHorCzZWdxNnl5Qgjddf9YGz4AAk4ptGY76wBbGQ1nVvywR9vKKYvwAAAAA=" 
             alt="Footify logo">
             <span>Footify</span>
           </a>
           <a class="channel-item" href="https://www.nsw.gov.au/" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-8010c6193f.webp" 
             alt="NSW Government logo">
             <span>NSW Government</span>
           </a>
           <a class="channel-item" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-0eff40c100.webp" 
             alt="Kash Abedi logo">
             <span>Kash Abedi</span>
           </a>
           <a class="channel-item" href="https://www.instagram.com/travel.givensolutions" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-45bec47a15.webp" 
             alt="Travel Given Solutions logo">
             <span>Travel Given Solutions</span>
           </a>
 
           <a class="channel-item" href="https://www.youtube.com/@RosieTilley" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-908d1a6413.webp" 
             alt="Rosie Tilley logo">
             <span>Rosie Tilley</span>
           </a>
           <a class="channel-item" href="https://www.youtube.com/@juliennellitravel" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-d698783eaf.webp" 
             alt="juliennellitravel logo">
             <span>juliennellitravel</span>
           </a>
           
           <a class="channel-item" href="https://www.youtube.com/@coldvisionoutdoors" target="_blank" rel="noopener">
-            <img loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
+            <img width="56" height="56" loading="lazy" decoding="async" class="channel-avatar" style="object-fit:cover;" 
             src="assets/img-07fd976225.webp" 
             alt="Cold Vision Outdoors logo">
             <span>Cold Vision Outdoors</span>
@@ -3303,17 +3353,14 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
       <div class="project-pages">
     <div class="grid" id="videoGrid">
       <div class="card">
-        <a href="https://vimeo.com/932740106" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://vimeo.com/932740106" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: Masmas Food Delivery App Promo">
           <div 
           class="thumb video-thumb" 
           style="background-image: url('assets/img-43a6d626b0.webp'); background-size: cover; background-position: center;">
           </div>
         </a>
         <h3>Masmas Food Delivery App Promo</h3>
-        <p>
-          Compilation edit highlighting fair-play moments from top-level football, 
-          cut for pacing and emotional beats.
-        </p>
+        <p>A promo video for the Masmas food delivery app, with a call to download it from the App Store and Google Play.</p>
         <a class="watch" href="https://vimeo.com/932740106" target="_blank" rel="noopener">
           Watch video ↗
         </a>
@@ -3323,37 +3370,31 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
         </div>
       </div>
       <div class="card">
-        <a href="https://vimeo.com/900000982" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://vimeo.com/900000982" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: Travel Given Solutions - Website Presentation">
           <div 
           class="thumb video-thumb" 
           style="background-image: url('assets/img-24bf62edac.webp'); background-size: cover; background-position: center;">
           </div>
         </a>
         <h3>Travel Given Solutions - Website Presentation</h3>
-        <p>
-          Compilation edit highlighting fair-play moments from top-level football, 
-          cut for pacing and emotional beats.
-        </p>
+        <p>A presentation video for the Travel Given Solutions website, inviting viewers to book their next trip.</p>
         <a class="watch" href="https://vimeo.com/900000982" target="_blank" rel="noopener">
           Watch video ↗
         </a>
         <div class="tags">
-          <a class="tag tag-channel" href="https://www.instagram.com/travel.givensolutions" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4CAABXRUJQVlA4IDICAACwDACdASo4ADgAPm0ylEckIyIhJguwgA2JQBpoMAmSveUpiV9w/I7KXRgdkbcBbAvavmA9CrPb9M+wJ+sxbpl7dq8WuYJiQoRggBokdIJ645Krn9xt4TUx1nxB5qgfpj25ZmwtvH+4LMFQUfoxYAD+/KgCE+A9SeGEKHVkCwYGn1YsCiFPOWNXt1SlWpGMlB8XvIyhCJkRq8weQXwb5ca5n9kaWHjeaAdTv0ZObDF+mTscQfmA8Wt+bJF2H61Z19b/Ouh8xIiqRnQ/cwbwz7KSa0NcFPnowdTlkUehm5a7Ptt7PalQLDNqvPaq6ivZwOG6v/qulK8ykQR/g+tc+JbKp++InKQ+Olvso9OXNPZdFBna6nfl1G76U/6UrWCriekm7/Naue6PIxn1qJ3Ebe2TGr4NG/aQoqo6EtTtNbO8C+I23k7Ad1OGLyuDDIkWcc2TMSrKvvjfz7lueqqrGKBrKPW3QsaF8fVium4X/JtMdsnNfl8RoRwjUUPI0prOkyDAkDaV8VM5ULxONdOpSTAQIkRoq/D2GyLEm0/tTX5yDB97uBt9ynO+G3Ur/qd0r+6XhjEryuXYlyFHfAkeCnG0usDiV6wtZhq1RxguH6pZamvolb8bMGKHqBcoarDPawWMnrNtEVIP97MDFK99CbRTqcwDEQ0KRmDfMkBKoeOMmPHDpUx0ouvc2Rk/k/gG7ZAP4kxf2fK0nuwFlOou1HyI0Of/n+a3XZ3oc0oeXR0pAAAA" alt=""><span>Travel Given Solutions</span></a>
+          <a class="tag tag-channel" href="https://www.instagram.com/travel.givensolutions" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4CAABXRUJQVlA4IDICAACwDACdASo4ADgAPm0ylEckIyIhJguwgA2JQBpoMAmSveUpiV9w/I7KXRgdkbcBbAvavmA9CrPb9M+wJ+sxbpl7dq8WuYJiQoRggBokdIJ645Krn9xt4TUx1nxB5qgfpj25ZmwtvH+4LMFQUfoxYAD+/KgCE+A9SeGEKHVkCwYGn1YsCiFPOWNXt1SlWpGMlB8XvIyhCJkRq8weQXwb5ca5n9kaWHjeaAdTv0ZObDF+mTscQfmA8Wt+bJF2H61Z19b/Ouh8xIiqRnQ/cwbwz7KSa0NcFPnowdTlkUehm5a7Ptt7PalQLDNqvPaq6ivZwOG6v/qulK8ykQR/g+tc+JbKp++InKQ+Olvso9OXNPZdFBna6nfl1G76U/6UrWCriekm7/Naue6PIxn1qJ3Ebe2TGr4NG/aQoqo6EtTtNbO8C+I23k7Ad1OGLyuDDIkWcc2TMSrKvvjfz7lueqqrGKBrKPW3QsaF8fVium4X/JtMdsnNfl8RoRwjUUPI0prOkyDAkDaV8VM5ULxONdOpSTAQIkRoq/D2GyLEm0/tTX5yDB97uBt9ynO+G3Ur/qd0r+6XhjEryuXYlyFHfAkeCnG0usDiV6wtZhq1RxguH6pZamvolb8bMGKHqBcoarDPawWMnrNtEVIP97MDFK99CbRTqcwDEQ0KRmDfMkBKoeOMmPHDpUx0ouvc2Rk/k/gG7ZAP4kxf2fK0nuwFlOou1HyI0Of/n+a3XZ3oc0oeXR0pAAAA" alt=""><span>Travel Given Solutions</span></a>
           <span class="tag">Premiere Pro</span>
         </div>
       </div>
       <div class="card">
-        <a href="https://vimeo.com/1012227452" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://vimeo.com/1012227452" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: AZON App Promo">
           <div 
           class="thumb video-thumb" 
           style="background-image: url('assets/img-6062c062e8.webp'); background-size: cover; background-position: center;">
           </div>
         </a>
         <h3>AZON App Promo</h3>
-        <p>
-          Compilation edit highlighting fair-play moments from top-level football, 
-          cut for pacing and emotional beats.
-        </p>
+        <p>A promo video for the AZON food delivery app, with a call to download it.</p>
         <a class="watch" href="https://vimeo.com/1012227452" target="_blank" rel="noopener">
           Watch video ↗
         </a>
@@ -3363,87 +3404,84 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
         </div>
       </div>
       <div class="card">
-        <a href="https://vimeo.com/930128340" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://vimeo.com/930128340" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: Screen NSW - APP PROMO">
           <div 
           class="thumb video-thumb" 
           style="background-image: url('assets/img-e89bb52104.webp'); background-size: cover; background-position: center;">
           </div>
         </a>
         <h3>Screen NSW - APP PROMO</h3>
-        <p>
-          Compilation edit highlighting fair-play moments from top-level football, 
-          cut for pacing and emotional beats.
-        </p>
+        <p>A promo video for the Screen NSW app, showing the app on a phone screen.</p>
         <a class="watch" href="https://vimeo.com/930128340" target="_blank" rel="noopener">
           Watch video ↗
         </a>
         <div class="tags">
-          <a class="tag tag-channel" href="https://www.nsw.gov.au/" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRtYDAABXRUJQVlA4IMoDAAAwEwCdASo4ADgAPm0qk0ckIiGhLBqpmIANiUAZ0jAM9y9ZX0AbxL6FflkeyvXAX0DwJ73nhP2myaT37wOd0xuhF1HGB9QP7X6k/53/k+MGoAfyT+c+e/nU+kvYI/l/9j/5yeKsTNhXbW2GIPAndsZQTz7/Jd4kW/KPgPJKcJG3XcxI98Muxm6jG9Nii8p97KGnZPArktInHrr990EIwZewNQAA/v92J/WRE5Aqs32ba36HqfP1Q0rCELEVnoIH2WKoEUN1JgGzNNsVG9KzykY2YrbYOyv7jY69T/B2N3HvbYkYj/BpLyQeE0Ft/lfrU+nc/8cmDuv+5nvun8cAGCKf+uaaDGiyw6DitIZ6pmK1R8LKuCMsLVTzOb0c9+6W2eK5TPaF/tx/nzX9P+LB+V2fM1GQ2MaNrQDCdUT9nCZROgHXRHIYkGcedqVOVp+7sdicAf2mNCw9T0aWU3CIWAR30iYx9sP5fFiX73d7fwndZQ6BQkHe9kaz6KWG7oZZXa6HLF7+XKoVSv6nzNPOWRnSkjITUvUYFeAmbzNX9x7ZZqQ8eBg2M0IkclcyfQNuGC7FWj6vItAdHqvHlIhgdbrOQOco56ysbNpC3vGyr8ZoB7p1GC99k4+qQkKJnL7V39WL5CGfYXWh59t34wQQnn/luuzmLR8fLq5l05brzTBEKhr+DnFtuVKnzJK/D9CiF/6j0Di3AwkBQq6zMkSsIAMKuF/SGPw4fIxqatqCkE/8Yk8pA4REvj4Q2Lfv97qRsSbccKV7WOpsA+/XdNWPvWp69w5A9/pwjw8io6w0r/akHHsYgp407GLSUu8fByCJD/gSo0tGxB15h5wMZMhO6JzufzXNfkvDdUNhK9Tor3wPGWlgkE8TXQ5jz8ooFl1oJI//5UNedP/OHFwjN8PjBAVyqXbhfjhj/Pjs3t5jP9mTKh/Sd/4H0pEXLnUYde9aWDLfCXGzkA2hiZpH33fCxyErjypTZADRWmtgO/QhAi/5dCSjalR/mf6ZkShmWQYLNZzDDfpw+KLdAvqGLa63G0/4EYc+hoN8Jx/W61/ujjBd42oXoqfN6Ftskp9J1etFWT5KZggYA/WWoYUEKO2Z4ioEpPVp2tiCWgQy76PUF//mXRnefDfih0GS4NNuYREJi4m359q2uXfnni3VI7ISWf3h2mGf96ZIC9POJqlHe6M7qw5sDHii/LQaJIFxHlT1HLNe3sT0TafGyXwqz+sQXmtl1Z/3pdwsJKsV/0wkpPTZOtMdyGzJI5BWrNZataJ9e30N/9XXnnlrMAAA" alt=""><span>NSW Government</span></a>
+          <a class="tag tag-channel" href="https://www.nsw.gov.au/" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRtYDAABXRUJQVlA4IMoDAAAwEwCdASo4ADgAPm0qk0ckIiGhLBqpmIANiUAZ0jAM9y9ZX0AbxL6FflkeyvXAX0DwJ73nhP2myaT37wOd0xuhF1HGB9QP7X6k/53/k+MGoAfyT+c+e/nU+kvYI/l/9j/5yeKsTNhXbW2GIPAndsZQTz7/Jd4kW/KPgPJKcJG3XcxI98Muxm6jG9Nii8p97KGnZPArktInHrr990EIwZewNQAA/v92J/WRE5Aqs32ba36HqfP1Q0rCELEVnoIH2WKoEUN1JgGzNNsVG9KzykY2YrbYOyv7jY69T/B2N3HvbYkYj/BpLyQeE0Ft/lfrU+nc/8cmDuv+5nvun8cAGCKf+uaaDGiyw6DitIZ6pmK1R8LKuCMsLVTzOb0c9+6W2eK5TPaF/tx/nzX9P+LB+V2fM1GQ2MaNrQDCdUT9nCZROgHXRHIYkGcedqVOVp+7sdicAf2mNCw9T0aWU3CIWAR30iYx9sP5fFiX73d7fwndZQ6BQkHe9kaz6KWG7oZZXa6HLF7+XKoVSv6nzNPOWRnSkjITUvUYFeAmbzNX9x7ZZqQ8eBg2M0IkclcyfQNuGC7FWj6vItAdHqvHlIhgdbrOQOco56ysbNpC3vGyr8ZoB7p1GC99k4+qQkKJnL7V39WL5CGfYXWh59t34wQQnn/luuzmLR8fLq5l05brzTBEKhr+DnFtuVKnzJK/D9CiF/6j0Di3AwkBQq6zMkSsIAMKuF/SGPw4fIxqatqCkE/8Yk8pA4REvj4Q2Lfv97qRsSbccKV7WOpsA+/XdNWPvWp69w5A9/pwjw8io6w0r/akHHsYgp407GLSUu8fByCJD/gSo0tGxB15h5wMZMhO6JzufzXNfkvDdUNhK9Tor3wPGWlgkE8TXQ5jz8ooFl1oJI//5UNedP/OHFwjN8PjBAVyqXbhfjhj/Pjs3t5jP9mTKh/Sd/4H0pEXLnUYde9aWDLfCXGzkA2hiZpH33fCxyErjypTZADRWmtgO/QhAi/5dCSjalR/mf6ZkShmWQYLNZzDDfpw+KLdAvqGLa63G0/4EYc+hoN8Jx/W61/ujjBd42oXoqfN6Ftskp9J1etFWT5KZggYA/WWoYUEKO2Z4ioEpPVp2tiCWgQy76PUF//mXRnefDfih0GS4NNuYREJi4m359q2uXfnni3VI7ISWf3h2mGf96ZIC9POJqlHe6M7qw5sDHii/LQaJIFxHlT1HLNe3sT0TafGyXwqz+sQXmtl1Z/3pdwsJKsV/0wkpPTZOtMdyGzJI5BWrNZataJ9e30N/9XXnnlrMAAA" alt=""><span>NSW Government</span></a>
           <span class="tag">Premiere Pro</span>
         </div>
       </div>
           <div class="card">
-        <a href="https://youtu.be/F25RMP6xM9s" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/F25RMP6xM9s" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: 100% Sportsmanship - Most RESPECTFUL Moments">
           <div class="thumb video-thumb" style="background-image: url('assets/img-70f5bbb0e7.webp'); background-size: cover; background-position: center;"></div>
         </a>
-        <h3>100% Sportsmanship — Most RESPECTFUL Moments</h3>
-        <p>A compilation of football's most respectful moments — fair play and gestures between rivals — paced to let the emotion land.</p>
+        <h3>100% Sportsmanship - Most RESPECTFUL Moments</h3>
+        <p>A compilation of football's most respectful moments - fair play and gestures between rivals - paced to let the emotion land.</p>
         <a class="watch" href="https://youtu.be/F25RMP6xM9s" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/tLZLjDS64zA" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/tLZLjDS64zA" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: Best Goals Of 2024/2025 Season (So Far)">
           <div class="thumb video-thumb" style="background-image: url('assets/img-a3a5c05e31.webp'); background-size: cover; background-position: center;"></div>
         </a>
         <h3>Best Goals Of 2024/2025 Season (So Far)</h3>
         <p>A season highlights reel of the best goals so far, cut to the rhythm of the action with dynamic zooms and punchy transitions.</p>
         <a class="watch" href="https://youtu.be/tLZLjDS64zA" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/Pcf4ZE7BL4Q" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/Pcf4ZE7BL4Q" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: Goals Worth Watching Again">
           <div class="thumb video-thumb" style="background-image: url('assets/img-c0e4639731.webp'); background-size: cover; background-position: center;"></div>
         </a>
         <h3>Goals Worth Watching Again</h3>
         <p>Standout goals worth a second look, edited with a stylized color treatment that keeps the focus on the strike.</p>
         <a class="watch" href="https://youtu.be/Pcf4ZE7BL4Q" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/whJbO6O8t4w" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/whJbO6O8t4w" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: LEGENDARY Long Shot Goals 2023">
           <div class="thumb video-thumb" style="background-image: url('assets/img-f4eae515cf.webp'); background-size: cover; background-position: center;"></div>
         </a>
         <h3>LEGENDARY Long Shot Goals 2023</h3>
         <p>Long-range goals from 2023 in a fast-paced edit built around the strike, the flight of the ball and the reaction.</p>
         <a class="watch" href="https://youtu.be/whJbO6O8t4w" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@footify1648" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAADwBwCdASo4ADgAPm0ylUckIyIhJguwgA2JYzyFA2QDqSmy/zNydIky2wZ0+5MfnMPzr2Cih5ZLMELbQLBioKOgutGZ68QHxAAA/vT2kSPrZD7f/LW/yr/wJ8N8bKOzCXyzct/wJu73+Gv9K33ahgWDqCfYWYIW/nWBX/BOlA0tP5k3yPOe5jgZO8VfaCAMxeSsOc1ZDZQBcHdvQ5skXf2oZy2rOkAnOPjSOulv64L244GP9GnQhuffs+nsRBUo571AHp3iR/2K4qpN99wS5fcxBhn42wmIECobFRev5ffOea3RfXP81kqBtj2vgIxe1mXu8N1lT6NguXQIa2KwL1puwSXuSZiR/QnV2oAAAAA=" alt=""><span>Footify</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/5cG4i__gmCQ" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/5cG4i__gmCQ" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: New Flip">
           <div class="thumb video-thumb" style="background-image: url('assets/img-00083f3890.webp'); background-size: cover; background-position: center;"></div>
         </a>
         <h3>New Flip</h3>
         <p>A house-flipping vlog kicking off a new project with a walk-through of the property.</p>
         <a class="watch" href="https://youtu.be/5cG4i__gmCQ" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/2Y6oC0Y3rdE" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/2Y6oC0Y3rdE" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: New Flip - Episode 2">
           <div class="thumb video-thumb" style="background-image: url('assets/img-a4d77edaff.webp'); background-size: cover; background-position: center;"></div>
         </a>
-        <h3>New Flip — Episode 2</h3>
+        <h3>New Flip - Episode 2</h3>
         <p>The next episode in the house-flip series, following a new property project.</p>
         <a class="watch" href="https://youtu.be/2Y6oC0Y3rdE" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
       </div>
       <div class="card">
-        <a href="https://youtu.be/OrbACeH5hNw" target="_blank" rel="noopener" style="display:block;">
+        <a href="https://youtu.be/OrbACeH5hNw" target="_blank" rel="noopener" style="display:block;" aria-label="Watch video: I Made $28K in 2 Months">
           <div class="thumb video-thumb" style="background-image: url('assets/img-84c655ca35.webp'); background-size: cover; background-position: center;"></div>
         </a>
         <h3>I Made $28K in 2 Months</h3>
         <p>A real estate vlog breaking down two months of results.</p>
         <a class="watch" href="https://youtu.be/OrbACeH5hNw" target="_blank" rel="noopener">Watch video ↗</a>
-        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
+        <div class="tags"><a class="tag tag-channel" href="https://www.youtube.com/@investwithkash" target="_blank" rel="noopener"><img width="18" height="18" loading="lazy" decoding="async" class="tag-avatar" src="data:image/webp;base64,UklGRj4DAABXRUJQVlA4IDIDAADQDwCdASo4ADgAPm0wk0akIyGhKBQNUIANiWMAuzPCztGEwkwL4PSWWdVpeTWJmAQIHJSx9wah9u+Gd4Kk/t4mA/sAGhrslqZZg80qcaP4km51arhJAnTuaBVS2VFRqIQ9zs+PZWu2AKJvtwR5VtZI0FvkECEnW446YhqOZPubtCw0qg9VosAA/vUH/t5EP3+2HvKpzgzoDaKxWks1ymVa0PJHoRxwTVb6xHjgcSNdZSTb1VvIYM0Sm3qRKndcZGnFnwui6O/CB/F5X5+0JZj6+WMmlq30oQ8rGIE9cEIiujNd32pux/yOaaDRpRFYklzNYcP6Eh/PU1o70N7fELEFTr6oMIVO3w6JS5yWSCqUWOk/0h/aajsecxDjAWqXPwP3qhZmDlafVtOz6i5v+symb/eCR9duyfy+kWlnwyCu9O78lWbPwUD4EgEoK7qDcoipTNVGd9KaQlF6MofyBoxWUNXJECaep3JqZpBNaXegjn+rH3ObLjPVKXGWGmzNKq/Tf6Lkh2aUnsy+h8H3cPWQT1ymPw08upIJ/VyvCz9GP+aHI7epzsZS3KzWBD608n/6WjXrnygYzu9gY/dOwjtKDCZ+O941v6rNvoSE9PToFFwfnEQ8IWjnHt2FiJFha+eCsvVOXY5b1jjL8AWNYAVCaevjpTEixOcpq6DV3BPUY+4SRcpUZFyhnp0ZVzpUEbgSKr7KEo+YXQv1JuyR0+bY5vgxmIgXYUYg+1ycWP7gB/sc2uR0x21wRlxyJFlj6VhmqYgivxCB5VaVTMevVbPBkk1H75LqvKN9gAZqT+jtP30AshU7Fidcj5J2GXB0V2bhy3jPpYN4g+gpZs1p7lL5K97R/XK6aJGPqyV29PUv7wYbAd2OzVCtwNj7eFKkFyC8ouoSj9o4UeDR5Dm6nEicqjXBGj7ILMY/70lyB1CmEgIcDKrYxVanSvphUm6B3Z8EVkbX2cKHHcQY1fd0PC/GwzgUVxaILSqzPvb+r8ekp8jwKmS7EeyTXF5t8/DiJczDGwnxx4PUcMDj9z+Q9MP9VhOV2kUNH+BH2tsebTI1HLzt0oxOeyhlBjIp6ZUAAhKAAA==" alt=""><span>Kash Abedi</span></a></div>
       </div>
       </div>
       </div>
@@ -3487,14 +3525,14 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
   <div class="wrap">
     <p class="sec-eyebrow">Professional journey</p>
     <h2 class="section-title">Education</h2>
-    <p class="section-kicker">My academic path at Badji Mokhtar University, Annaba — the foundation behind both the AI engineering and the data work.</p>
+    <p class="section-kicker">My academic path at Badji Mokhtar University, Annaba - the foundation behind both the AI engineering and the data work.</p>
     <div class="edu-uni"><span class="edu-dot"></span>Badji Mokhtar University <span class="edu-sep">·</span> Annaba, Algeria</div>
     <div class="edu-grid">
       <article class="edu-card">
         <div class="edu-top"><span class="edu-level">Master's degree</span><span class="edu-years">2022 – 2024</span></div>
         <h3>Intelligence Artificielle et Traitement de l’information</h3>
         <p class="edu-field ph">Master 2 · Artificial Intelligence and Information Processing</p>
-        <ul class="edu-points"><li class="ph">Thesis: « Étude sur les effets secondaires du vaccin COVID en utilisant l’IA » (a study of COVID vaccine side effects using AI)</li><li li class="ph">Applied in a Feb–Mar 2024 internship at EPSP Annaba: clustering-based side-effect prediction and a full web app</li></ul>
+        <ul class="edu-points"><li class="ph">Thesis: « Étude sur les effets secondaires du vaccin COVID en utilisant l’IA » (a study of COVID vaccine side effects using AI)</li><li class="ph">Applied in a Feb–Mar 2024 internship at EPSP Annaba: clustering-based side-effect prediction and a full web app</li></ul>
       </article>
       <article class="edu-card">
         <div class="edu-top"><span class="edu-level">Bachelor's degree</span><span class="edu-years">2019 – 2022</span></div>
@@ -3512,7 +3550,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
     <div>
       <p class="sec-eyebrow">About me</p>
     <h2 class="section-title">About</h2>
-      <p>I split my time between two crafts that turn out to feed each other more than you'd expect: editing video teaches me to think in timelines and pacing, and engineering teaches me to think in data and systems. Clients hire me for one or the other — increasingly, for both at once, since I can automate parts of a post-production pipeline the same way I'd build any other data tool.</p>
+      <p>I split my time between two crafts that turn out to feed each other more than you'd expect: editing video teaches me to think in timelines and pacing, and engineering teaches me to think in data and systems. Clients hire me for one or the other - increasingly, for both at once, since I can automate parts of a post-production pipeline the same way I'd build any other data tool.</p>
       <p>Based in Annaba, Algeria, working with clients worldwide through Fiverr and Upwork.</p>
     </div>
     <aside class="about-card-wrap" aria-label="Profile card">
@@ -3531,11 +3569,12 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
 </section>
 
 <div class="band" aria-hidden="true"><div class="band-track"><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b><span>Connect with me</span><b>✦</b></div></div>
+</main>
 <footer id="contact">
   <div class="wrap">
     <p class="sec-eyebrow">Reach out anytime</p>
     <h2>Let's stay connected</h2>
-    <p style="color:var(--ink-dim2); max-width:50ch;">Whether it's a video that needs cutting or data that needs making sense of — reach out.</p>
+    <p style="color:var(--ink-dim2); max-width:50ch;">Whether it's a video that needs cutting or data that needs making sense of - reach out.</p>
     <div class="cta-row"><a class="btn btn-primary" href="mailto:djalilhalisse@gmail.com">Send a message <span aria-hidden="true">→</span></a><span class="mail-pill">djalilhalisse@gmail.com</span></div>
     <div class="contact-links">
       <a href="mailto:djalilhalisse@gmail.com"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg><span>Email</span></a>
@@ -3555,7 +3594,7 @@ if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListen
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
 </button>
 
-<div class="cv-overlay" id="cvOverlay" aria-hidden="true">
+<div class="cv-overlay" id="cvOverlay" aria-hidden="true" inert>
   <button class="cv-nav cv-prev" id="cvPrev" aria-label="Previous">‹</button>
   <div class="cv-panel" id="cvPanel" role="dialog" aria-modal="true">
     <button class="cv-close" id="cvClose" aria-label="Close">×</button>
@@ -3693,8 +3732,9 @@ makeSlider({ slider: 'aiSlider', grid: 'aiGrid', pager: 'aiPager', dots: 'aiDots
 (function(){
 const track = document.getElementById('channelTrack');
 const btns = document.querySelectorAll('.channels .slider-btn');
+if (!track) return;
 const originals = Array.from(track.children);
-if (!track || !originals.length) return;
+if (!originals.length || !track.offsetParent) return;   // the .cm marquee replaces this strip and CSS hides it
 let setW = 0, copies = 1, ticking = false, timer;
 function build(){
 const pos = setW ? ((track.scrollLeft % setW) + setW) % setW : 0;
@@ -3703,6 +3743,7 @@ const probe = originals[0];
 const first = probe.offsetLeft;
 const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
 setW = originals.reduce(function(w, el){ return w + el.getBoundingClientRect().width + gap; }, 0);
+if (!setW) return;
 copies = Math.max(1, Math.ceil((track.clientWidth * 1.5) / setW));
 for (let k = 0; k < copies; k++) {
 [ 'before', 'after' ].forEach(function(where){
@@ -3752,8 +3793,8 @@ build();
 document.querySelectorAll('.mode-toggle button').forEach(btn => {
 btn.addEventListener('click', () => {
 document.documentElement.style.setProperty('--accent', btn.dataset.mode === 'amber' ? 'var(--amber)' : 'var(--teal)');
-document.querySelectorAll('.mode-toggle button').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
+document.querySelectorAll('.mode-toggle button').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
 const dest = document.getElementById(btn.dataset.mode === 'amber' ? 'editor' : 'engineer');
 if (dest) dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
@@ -3793,8 +3834,20 @@ cur = next;
 }
 function advance(){ show((cur + 1) % slides.length, 1); }
 tabs.forEach(function(t, i){ t.addEventListener('click', function(){ show(i); }); });
+const rmq = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
 tabs.forEach(function(t){
-t.querySelector('i').addEventListener('animationend', function(){ if (t.classList.contains('active')) advance(); });
+t.querySelector('i').addEventListener('animationend', function(){ if (rmq && rmq.matches) return; if (t.classList.contains('active')) advance(); });
+});
+tabs.forEach(function(t, i){
+t.addEventListener('keydown', function(e){
+let n = -1;
+if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+else if (e.key === 'ArrowLeft') n = (i + tabs.length - 1) % tabs.length;
+else if (e.key === 'Home') n = 0;
+else if (e.key === 'End') n = tabs.length - 1;
+if (n < 0) return;
+e.preventDefault(); show(n); tabs[n].focus();
+});
 });
 let hover = false, focus = false, visible = true;
 function sync(){ hero.classList.toggle('paused', hover || focus || !visible || document.hidden); }
@@ -3820,11 +3873,11 @@ const nav = document.querySelector('nav');
 const hero = document.querySelector('header.hero');
 const modeBtns = Array.prototype.slice.call(document.querySelectorAll('.mode-toggle button'));
 const links = Array.prototype.slice.call(document.querySelectorAll('.navlinks a[href^="#"]'));
-const ids = ['top', 'engineer', 'editor', 'education', 'about', 'contact'];
+const ids = ['top', 'engineer', 'editor', 'skills', 'education', 'about', 'contact'];
 const sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 let current = null, ticking = false;
 function setMode(mode, accent){
-modeBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.mode === mode); });
+modeBtns.forEach(function(b){ const on = b.dataset.mode === mode; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
 if (accent && mode) document.documentElement.style.setProperty('--accent', mode === 'amber' ? 'var(--amber)' : 'var(--teal)');
 }
 function apply(id){
@@ -3852,26 +3905,6 @@ document.addEventListener('herochange', function(){ if (current === 'top') apply
 pick();
 })();
 (function(){
-const groups = ['#videoGrid > .card', '#engineer .grid > .card', '.edu-grid > .edu-card'];
-function run(){
-groups.forEach(function(sel){
-const cards = Array.prototype.slice.call(document.querySelectorAll(sel));
-if (!cards.length) return;
-const shown = cards.map(function(c){ return c.style.display; });
-cards.forEach(function(c){ c.style.minHeight = '0'; c.style.display = ''; });
-let max = 0;
-cards.forEach(function(c){ max = Math.max(max, c.getBoundingClientRect().height); });
-cards.forEach(function(c, i){ c.style.display = shown[i]; c.style.minHeight = Math.ceil(max) + 'px'; });
-});
-}
-let t;
-function later(){ clearTimeout(t); t = setTimeout(run, 120); }
-run();
-window.addEventListener('load', run);
-window.addEventListener('resize', later);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
-})();
-(function(){
 const nav = document.querySelector('nav');
 if (!nav) return;
 function measure(){ document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px'); }
@@ -3881,7 +3914,7 @@ window.addEventListener('resize', measure);
 window.addEventListener('load', measure);
 })();
 (function(){
-const FR = {"Qoffa — barcode shopping app with an AI assistant": "Qoffa — application de courses avec scan de codes-barres et assistant IA", "A mobile app for shopping in a hypermarket: scan barcodes and see a live total in dinars against the cash you carry. Built with React Native (Expo), a Node.js and SQLite server, a web dashboard for store managers, and an AI assistant that plans a shopping list for a budget.": "Une application mobile pour faire ses courses en hypermarché : on scanne les codes-barres et on voit le total en dinars en direct, face à l’argent dont on dispose. Elle repose sur React Native (Expo), un serveur Node.js avec SQLite, un tableau de bord web pour les gérants de magasin et un assistant IA qui prépare une liste de courses selon un budget.", "AI shopping assistant": "Assistant de courses IA", "Shoppers type in plain words, in any of the app's languages, and get a shopping list for their budget (for example 5,000 DA for three people for four days) or ideas to bring an over-budget cart back under it. The server calls Claude or Gemini, switchable from the admin dashboard, and every price comes from the store's own catalog, so list totals match the shelf prices.": "Les clients écrivent avec leurs propres mots, dans n’importe quelle langue de l’application, et obtiennent une liste de courses adaptée à leur budget (par exemple 5 000 DA pour trois personnes pendant quatre jours) ou des idées pour ramener un panier trop cher sous le budget. Le serveur appelle Claude ou Gemini, au choix depuis le tableau de bord d’administration, et chaque prix vient du catalogue du magasin : les totaux correspondent donc aux prix en rayon.", "Spending analytics & digital receipts": "Analyse des dépenses et reçus numériques", "Every finished trip becomes a digital receipt and feeds a spending dashboard: total spent against the previous period, average per trip, spending over time, by hypermarket and by category, and the most purchased products. The calculations are checked in the tests against a separate brute-force version.": "Chaque course terminée devient un reçu numérique et alimente un tableau de bord des dépenses : total dépensé par rapport à la période précédente, moyenne par course, dépenses dans le temps, par hypermarché et par catégorie, et produits les plus achetés. Les calculs sont vérifiés dans les tests par rapport à une version de calcul séparée, en force brute.", "Store catalog & pricing tools": "Catalogue du magasin et outils de prix", "A web dashboard where managers import products from CSV, give a product several barcodes, set quantity prices (“6 for 550 DA”), sell items by weight from electronic-scale labels, print barcode labels, and run loyalty points, opening hours and promotions. Several hypermarkets are supported, each with its own catalog, prices and staff.": "Un tableau de bord web où les gérants importent les produits par CSV, associent plusieurs codes-barres à un produit, fixent des prix par quantité (« 6 pour 550 DA »), vendent au poids à partir des étiquettes de balance, impriment des étiquettes de codes-barres et gèrent points de fidélité, horaires et promotions. Plusieurs hypermarchés sont pris en charge, chacun avec son catalogue, ses prix et son personnel.", "Family shopping & languages": "Courses en famille et langues", "Families share lists and live carts, updated almost instantly through long polling, with invite codes and clear owner and member rules. The app speaks English, French, Arabic and Algerian Darija, right-to-left included, and dozens of automated tests cover the server, pricing rules and screens.": "Les familles partagent listes et paniers en direct, mis à jour presque instantanément par long polling, avec des codes d’invitation et des règles claires entre propriétaire et membres. L’application parle anglais, français, arabe et darija algérien, avec l’écriture de droite à gauche, et des dizaines de tests automatisés couvrent le serveur, les règles de prix et les écrans.", "Mobile app": "Application mobile", "Applied machine learning, data and AI work: my internship at EPSP Annaba, centred on a COVID-19 vaccine side-effect prediction tool, and Qoffa, a shopping app with an AI assistant.": "Travaux appliqués d'apprentissage automatique, de données et d'IA : mon stage à l'EPSP d'Annaba, centré sur un outil de prédiction des effets secondaires du vaccin COVID-19, et Qoffa, une application de courses avec assistant IA.", "Bachelor's degree project: SAHTI, a bilingual (French / Arabic) website for booking doctor appointments in Annaba": "Projet de licence : SAHTI, un site bilingue (français / arabe) de prise de rendez-vous médicaux à Annaba", "Patients pick a doctor and a free 30-minute slot and get a ticket number at once; doctors follow their appointments on a private dashboard and an administrator manages the directory": "Les patients choisissent un médecin et un créneau libre de 30 minutes et reçoivent aussitôt un numéro de ticket ; les médecins suivent leurs rendez-vous sur un tableau de bord privé et un administrateur gère l’annuaire", "Plain PHP and MySQL with no framework: bcrypt passwords, prepared statements, CSRF protection, and a database constraint that makes double-booking impossible": "PHP et MySQL natifs, sans framework : mots de passe bcrypt, requêtes préparées, protection CSRF et contrainte de base de données qui empêche toute double réservation", "My Education": "Ma formation", "AI Engineer & Video Editor": "Ingénieur IA & Monteur vidéo", "Profile card": "Carte de profil", "Patient Records — vaccination data collection app": "Patient Records — application de collecte des données de vaccination", "A desktop app I built to collect patient vaccination data, now in use at EPSP Annaba. It adds, edits, searches and exports records, with form validation, a dashboard of totals and vaccine breakdowns, a medical-history checklist and dark/light mode. Records are saved to CSV files with atomic writes, so a crash can't corrupt the data.": "Une application de bureau que j'ai développée pour collecter les données de vaccination des patients, désormais utilisée à l'EPSP d'Annaba. Elle permet d'ajouter, modifier, rechercher et exporter des dossiers, avec validation des formulaires, un tableau de bord des totaux et des vaccins, une liste d'antécédents médicaux et un mode sombre/clair. Les dossiers sont enregistrés dans des fichiers CSV avec écriture atomique, pour qu'un plantage ne puisse pas corrompre les données.", "Video Editing": "Montage vidéo", "Video": "Vidéo", "AI & Data": "IA & Données", "Education": "Formation", "Certificates": "Certificats", "About": "À propos", "editor": "monteur", "engineer": "ingénieur", "Annaba, Algeria — freelance since 2021": "Annaba, Algérie — freelance depuis 2021", "Video Editor": "Monteur vidéo", "AI Engineer & Data Analyst": "Ingénieur IA & Analyste de données", "I cut footage into stories on Fiverr and Upwork, and I build models and dashboards that make sense of data. Five-plus years editing, 200+ delivered projects, and a computer science background from Badji Mokhtar University, Annaba.": "Je transforme des rushes en histoires sur Fiverr et Upwork, et je conçois des modèles et des tableaux de bord qui donnent du sens aux données. Plus de cinq ans de montage, plus de 200 projets livrés et une formation en informatique à l'Université Badji Mokhtar, Annaba.", "years editing": "années de montage", "video projects delivered": "projets vidéo livrés", "disciplines, one workflow": "disciplines, un seul flux de travail", "Video editing work": "Travaux de montage vidéo", "A sample of client work across YouTube, e-commerce and social — replace with your own real projects and links.": "Un échantillon de travaux clients sur YouTube, l'e-commerce et les réseaux sociaux — à remplacer par vos propres projets et liens.", "Companies & YouTube channels I've edited for": "Entreprises et chaînes YouTube pour lesquelles j'ai monté des vidéos", "Past Projects": "Projets réalisés", "Watch video ↗": "Voir la vidéo ↗", "Watch video": "Voir la vidéo", "Channel": "Chaîne", "Tools": "Outils", "Craft": "Savoir-faire", "Compilation edit highlighting fair-play moments from top-level football, cut for pacing and emotional beats.": "Montage compilation mettant en avant des moments de fair-play du football de haut niveau, rythmé pour faire ressortir les émotions.", "A compilation of football's most respectful moments — fair play and gestures between rivals — paced to let the emotion land.": "Une compilation des moments les plus respectueux du football — fair-play et gestes entre rivaux — rythmée pour laisser toute sa place à l'émotion.", "A season highlights reel of the best goals so far, cut to the rhythm of the action with dynamic zooms and punchy transitions.": "Un résumé de saison des plus beaux buts à ce jour, monté au rythme de l'action avec des zooms dynamiques et des transitions percutantes.", "Standout goals worth a second look, edited with a stylized color treatment that keeps the focus on the strike.": "Des buts marquants à revoir, montés avec un traitement colorimétrique stylisé qui garde l'attention sur la frappe.", "Long-range goals from 2023 in a fast-paced edit built around the strike, the flight of the ball and the reaction.": "Des buts de loin de 2023 dans un montage rapide construit autour de la frappe, de la trajectoire du ballon et de la réaction.", "A house-flipping vlog kicking off a new project with a walk-through of the property.": "Un vlog de rénovation-revente qui lance un nouveau projet avec une visite de la propriété.", "The next episode in the house-flip series, following a new property project.": "L'épisode suivant de la série de rénovation-revente, autour d'un nouveau projet immobilier.", "A real estate vlog breaking down two months of results.": "Un vlog immobilier qui détaille deux mois de résultats.", "Color grading": "Étalonnage", "Motion graphics": "Motion design", "Sound design": "Design sonore", "Short-form & long-form": "Formats courts et longs", "Machine learning": "Apprentissage automatique", "Data visualization": "Visualisation de données", "Model deployment": "Déploiement de modèles", "Statistical analysis": "Analyse statistique", "AI & data work": "Travaux en IA et données", "Applied machine learning and analysis projects — swap in your real notebooks, repos and dashboards.": "Projets appliqués d'apprentissage automatique et d'analyse — à remplacer par vos propres notebooks, dépôts et tableaux de bord.", "Customer churn prediction model": "Modèle de prédiction du churn client", "Sales analytics dashboard": "Tableau de bord d'analyse des ventes", "Video-editing automation script": "Script d'automatisation du montage vidéo", "Sahti — medical appointment booking platform": "Sahti — plateforme de prise de rendez-vous médicaux", "My Bachelor's degree thesis project: a full-stack website where patients book appointments with doctors, with a database backing doctor schedules and bookings.": "Mon projet de mémoire de licence : un site web full-stack où les patients prennent rendez-vous avec des médecins, avec une base de données gérant les plannings et les réservations.", "GitHub repo ↗": "Dépôt GitHub ↗", "Web development": "Développement web", "Sentiment analysis on reviews": "Analyse de sentiment sur des avis", "Gradient-boosted classifier on subscription data, with a feature-importance dashboard for the ops team.": "Classifieur à gradient boosting sur des données d'abonnement, avec un tableau de bord d'importance des variables pour l'équipe opérationnelle.", "End-to-end pipeline from raw CSV exports to a live Power BI dashboard tracking regional performance.": "Pipeline complet, des exports CSV bruts à un tableau de bord Power BI en direct suivant les performances régionales.", "A Python tool that auto-detects silences and jump-cuts raw footage, cutting first-pass editing time in half.": "Un outil Python qui détecte automatiquement les silences et effectue des jump cuts sur les rushes, réduisant de moitié le temps du premier montage.", "Fine-tuned transformer model classifying product reviews, deployed behind a lightweight API.": "Modèle transformer affiné pour classer des avis produits, déployé derrière une API légère.", "My academic path at Badji Mokhtar University, Annaba — the foundation behind both the AI engineering and the data work.": "Mon parcours universitaire à l'Université Badji Mokhtar, Annaba — la base de mon travail en ingénierie IA comme en analyse de données.", "Badji Mokhtar University": "Université Badji Mokhtar", "Annaba, Algeria": "Annaba, Algérie", "Master's degree": "Master", "Bachelor's degree": "Licence", "Computer Science": "Informatique", "Field of study · Specialization": "Domaine d'études · Spécialisation", "Thesis, key modules or honors — to be filled in from your CV": "Mémoire, modules clés ou distinctions — à compléter depuis votre CV", "Key modules, projects or honors — to be filled in from your CV": "Modules clés, projets ou distinctions — à compléter depuis votre CV", "Courses and certifications behind my editing work — from Premiere Pro fundamentals to motion graphics in After Effects.": "Les formations et certifications derrière mon travail de montage — des bases de Premiere Pro au motion design dans After Effects.", "Video editing": "Montage vidéo", "Issued 2020": "Délivré en 2020", "Issued 2019": "Délivré en 2019", "I split my time between two crafts that turn out to feed each other more than you'd expect: editing video teaches me to think in timelines and pacing, and engineering teaches me to think in data and systems. Clients hire me for one or the other — increasingly, for both at once, since I can automate parts of a post-production pipeline the same way I'd build any other data tool.": "Je partage mon temps entre deux métiers qui se nourrissent l'un l'autre plus qu'on ne le croirait : le montage vidéo m'apprend à penser en timelines et en rythme, et l'ingénierie m'apprend à penser en données et en systèmes. Mes clients font appel à moi pour l'un ou l'autre — de plus en plus pour les deux à la fois, car je peux automatiser des étapes d'une chaîne de post-production comme je construirais n'importe quel autre outil de données.", "Based in Annaba, Algeria, working with clients worldwide through Fiverr and Upwork.": "Basé à Annaba, en Algérie, je travaille avec des clients du monde entier via Fiverr et Upwork.", "Let's work together": "Travaillons ensemble", "Whether it's a video that needs cutting or data that needs making sense of — reach out.": "Qu'il s'agisse d'une vidéo à monter ou de données à analyser — contactez-moi.", "Email": "E-mail", "© 2026 Abdeldjalil Halisse. Built as a starting point — replace placeholder text, projects and links with your own.": "© 2026 Abdeldjalil Halisse. Conçu comme point de départ — remplacez le texte, les projets et les liens d'exemple par les vôtres.", "Back to top": "Retour en haut", "Scroll left": "Défiler vers la gauche", "Scroll right": "Défiler vers la droite", "Previous projects": "Projets précédents", "Next projects": "Projets suivants", "Previous": "Précédent", "Next": "Suivant", "Close": "Fermer", "Accent focus": "Focus de l'accent", "Language": "Langue", "Portrait of Abdeldjalil Halisse": "Portrait d'Abdeldjalil Halisse", "Abdeldjalil Halisse — AI Engineer & Video Editor": "Abdeldjalil Halisse — Ingénieur IA & Monteur vidéo", "AI & Data Analysis": "IA & Données", "I build models and dashboards that make sense of data — from machine-learning pipelines to Power BI reporting. Master's-level training in artificial intelligence and information processing at Badji Mokhtar University, Annaba.": "Je conçois des modèles et des tableaux de bord qui donnent du sens aux données — des pipelines de machine learning aux rapports Power BI. Un Master en intelligence artificielle et traitement de l'information à l'Université Badji Mokhtar, Annaba.", "MSc": "Master", "in Artificial Intelligence": "en Intelligence Artificielle", "SQL & Power BI for data work": "SQL et Power BI pour l'analyse de données", "Hero slides": "Diaporama d'accueil", "AI & Data Science Work": "Travaux en IA et science des données", "VaxCluster - COVID-19 vaccine side-effect prediction app": "Application de prédiction des effets secondaires du vaccin COVID-19", "My Master's degree thesis project: a full-stack web app that collects patient data and shows the probability of each side effect, along with their average. Prediction module in Python, SQL database managed through PHP, HTML/CSS/JavaScript front end.": "Mon projet de thèse de Master : une application web full-stack qui collecte les données des patients et affiche la probabilité de chaque effet secondaire, ainsi que leur moyenne. Module de prédiction en Python, base de données SQL gérée via PHP, interface en HTML/CSS/JavaScript.", "Clustering for side-effect prediction": "Clustering pour la prédiction des effets secondaires", "Compared three clustering methods (K-Means, Gaussian Mixture Models and agglomerative clustering) in Python to predict vaccine side effects, with each model's probabilities shown side by side in the app.": "Comparaison de trois méthodes de clustering (K-Means, modèles de mélange gaussien et clustering agglomératif) en Python pour prédire les effets secondaires du vaccin, avec les probabilités de chaque modèle affichées côte à côte dans l'application.", "Medical records digitization & data preparation": "Numérisation des dossiers médicaux et préparation des données", "Digitized 500+ handwritten patient records into a centralized database, cutting data access time by 70%. Cleaned the data before modeling: duplicate removal, normalization and encoding.": "Numérisation de plus de 500 dossiers patients manuscrits dans une base de données centralisée, réduisant le temps d'accès aux données de 70 %. Nettoyage des données avant la modélisation : suppression des doublons, normalisation et encodage.", "Internal workflow automation": "Automatisation des flux de travail internes", "Automated internal management workflows at the health establishment during the internship, improving day-to-day operational efficiency.": "Automatisation des flux de gestion internes de l'établissement de santé pendant le stage, pour améliorer l'efficacité opérationnelle au quotidien.", "COVID-19 vaccine side-effects data analysis": "Analyse de données des effets secondaires des vaccins COVID-19", "View notebook ↗": "Voir le notebook ↗", "Supervised & unsupervised learning": "Apprentissage supervisé et non supervisé", "Data analysis & management": "Analyse et gestion de données", "Data cleaning & preprocessing": "Nettoyage et prétraitement des données", "Video Editing Work": "Travaux de montage vidéo", "A sample of client work across YouTube, e-commerce and social.": "Un échantillon de travaux clients sur YouTube, l'e-commerce et les réseaux sociaux.", "Master 2 · Artificial Intelligence and Information Processing": "Master 2 · Intelligence Artificielle et Traitement de l'information", "Thesis: « Étude sur les effets secondaires du vaccin COVID en utilisant l'IA » (a study of COVID vaccine side effects using AI)": "Mémoire : « Étude sur les effets secondaires du vaccin COVID en utilisant l'IA »", "Applied in a Feb–Mar 2024 internship at EPSP Annaba: clustering-based side-effect prediction and a full web app": "Appliqué lors d'un stage de février–mars 2024 à l'EPSP d'Annaba : prédiction des effets secondaires par clustering et application web complète", "Fiverr profile": "Profil Fiverr", "GitHub profile": "Profil GitHub", "Exploratory analysis of 372 patient records on COVID-19 vaccine side effects, in Python. Cluster count chosen with the silhouette score, then K-Means, agglomerative and Gaussian mixture clustering, visualized with PCA and dendrograms. Each cluster is profiled by side effect, vaccine (Sputnik V, Sinovac, Sinopharm, AstraZeneca), vaccination site, pre-existing conditions and age. Fever, fatigue and muscle pain were the most frequent side effects.": "Analyse exploratoire de 372 dossiers patients sur les effets secondaires des vaccins COVID-19, en Python. Nombre de clusters choisi avec le score de silhouette, puis clustering K-Means, agglomératif et par mélange gaussien, visualisés avec l'ACP et des dendrogrammes. Chaque cluster est décrit par effet secondaire, vaccin (Sputnik V, Sinovac, Sinopharm, AstraZeneca), lieu de vaccination, pathologies associées et âge. La fièvre, la fatigue et les douleurs musculaires sont les effets secondaires les plus fréquents.", "Online now": "En ligne", "Hi! I'm": "Salut ! Je suis", "See what I can do": "Voir mes réalisations", "Hire me on Fiverr ↗": "Me contacter sur Fiverr ↗", "My Projects": "Mes projets", "My Skillset": "Mes compétences", "Connect with me": "Contactez-moi", "Selected work": "Réalisations", "Professional journey": "Parcours professionnel", "Credentials": "Certifications", "About me": "À propos de moi", "All": "Tout", "Web apps": "Applications web", "Desktop app": "Application de bureau", "Data analysis": "Analyse de données", "Toolbox": "Boîte à outils", "My creative toolbox": "Ma boîte à outils créative", "The software and skills I use every day, across video and data work.": "Les logiciels et compétences que j'utilise au quotidien, en vidéo comme en données.", "Cutting, pacing and finishing client videos": "Montage, rythme et finition des vidéos clients", "Motion graphics and visual effects": "Motion design et effets visuels", "Colour grading and final polish": "Étalonnage et finitions", "Audio cleanup and sound design": "Nettoyage audio et design sonore", "Data work and machine-learning pipelines": "Traitement de données et pipelines de machine learning", "Querying and managing databases": "Interrogation et gestion de bases de données", "Dashboards and reporting": "Tableaux de bord et reporting", "Clustering and prediction models": "Modèles de clustering et de prédiction", "Cleaning and preparing data": "Nettoyage et préparation des données", "Full-stack web apps with MySQL": "Applications web full-stack avec MySQL", "Charts and data visualisation": "Graphiques et visualisation de données", "Reach out anytime": "Contactez-moi à tout moment", "Let's stay connected": "Restons en contact", "Send a message": "Envoyer un message", "projects delivered": "projets livrés", "Hover my head": "Survolez ma tête", "Tap my head": "Touchez ma tête"};
+const FR = {"Qoffa - barcode shopping app with an AI assistant": "Qoffa - application de courses avec scan de codes-barres et assistant IA", "A mobile app for shopping in a hypermarket: scan barcodes and see a live total in dinars against the cash you carry. Built with React Native (Expo), a Node.js and SQLite server, a web dashboard for store managers, and an AI assistant that plans a shopping list for a budget.": "Une application mobile pour faire ses courses en hypermarché : on scanne les codes-barres et on voit le total en dinars en direct, face à l’argent dont on dispose. Elle repose sur React Native (Expo), un serveur Node.js avec SQLite, un tableau de bord web pour les gérants de magasin et un assistant IA qui prépare une liste de courses selon un budget.", "AI shopping assistant": "Assistant de courses IA", "Shoppers type in plain words, in any of the app's languages, and get a shopping list for their budget (for example 5,000 DA for three people for four days) or ideas to bring an over-budget cart back under it. The server calls Claude or Gemini, switchable from the admin dashboard, and every price comes from the store's own catalog, so list totals match the shelf prices.": "Les clients écrivent avec leurs propres mots, dans n’importe quelle langue de l’application, et obtiennent une liste de courses adaptée à leur budget (par exemple 5 000 DA pour trois personnes pendant quatre jours) ou des idées pour ramener un panier trop cher sous le budget. Le serveur appelle Claude ou Gemini, au choix depuis le tableau de bord d’administration, et chaque prix vient du catalogue du magasin : les totaux correspondent donc aux prix en rayon.", "Spending analytics & digital receipts": "Analyse des dépenses et reçus numériques", "Every finished trip becomes a digital receipt and feeds a spending dashboard: total spent against the previous period, average per trip, spending over time, by hypermarket and by category, and the most purchased products. The calculations are checked in the tests against a separate brute-force version.": "Chaque course terminée devient un reçu numérique et alimente un tableau de bord des dépenses : total dépensé par rapport à la période précédente, moyenne par course, dépenses dans le temps, par hypermarché et par catégorie, et produits les plus achetés. Les calculs sont vérifiés dans les tests par rapport à une version de calcul séparée, en force brute.", "Store catalog & pricing tools": "Catalogue du magasin et outils de prix", "A web dashboard where managers import products from CSV, give a product several barcodes, set quantity prices (“6 for 550 DA”), sell items by weight from electronic-scale labels, print barcode labels, and run loyalty points, opening hours and promotions. Several hypermarkets are supported, each with its own catalog, prices and staff.": "Un tableau de bord web où les gérants importent les produits par CSV, associent plusieurs codes-barres à un produit, fixent des prix par quantité (« 6 pour 550 DA »), vendent au poids à partir des étiquettes de balance, impriment des étiquettes de codes-barres et gèrent points de fidélité, horaires et promotions. Plusieurs hypermarchés sont pris en charge, chacun avec son catalogue, ses prix et son personnel.", "Family shopping & languages": "Courses en famille et langues", "Families share lists and live carts, updated almost instantly through long polling, with invite codes and clear owner and member rules. The app speaks English, French, Arabic and Algerian Darija, right-to-left included, and dozens of automated tests cover the server, pricing rules and screens.": "Les familles partagent listes et paniers en direct, mis à jour presque instantanément par long polling, avec des codes d’invitation et des règles claires entre propriétaire et membres. L’application parle anglais, français, arabe et darija algérien, avec l’écriture de droite à gauche, et des dizaines de tests automatisés couvrent le serveur, les règles de prix et les écrans.", "Mobile app": "Application mobile", "Applied machine learning, data and AI work: my internship at EPSP Annaba, centred on a COVID-19 vaccine side-effect prediction tool, and Qoffa, a shopping app with an AI assistant.": "Travaux appliqués d'apprentissage automatique, de données et d'IA : mon stage à l'EPSP d'Annaba, centré sur un outil de prédiction des effets secondaires du vaccin COVID-19, et Qoffa, une application de courses avec assistant IA.", "Bachelor's degree project: SAHTI, a bilingual (French / Arabic) website for booking doctor appointments in Annaba": "Projet de licence : SAHTI, un site bilingue (français / arabe) de prise de rendez-vous médicaux à Annaba", "Patients pick a doctor and a free 30-minute slot and get a ticket number at once; doctors follow their appointments on a private dashboard and an administrator manages the directory": "Les patients choisissent un médecin et un créneau libre de 30 minutes et reçoivent aussitôt un numéro de ticket ; les médecins suivent leurs rendez-vous sur un tableau de bord privé et un administrateur gère l’annuaire", "Plain PHP and MySQL with no framework: bcrypt passwords, prepared statements, CSRF protection, and a database constraint that makes double-booking impossible": "PHP et MySQL natifs, sans framework : mots de passe bcrypt, requêtes préparées, protection CSRF et contrainte de base de données qui empêche toute double réservation", "My Education": "Ma formation", "AI Engineer & Video Editor": "Ingénieur IA & Monteur vidéo", "Profile card": "Carte de profil", "Patient Records - vaccination data collection app": "Patient Records - application de collecte des données de vaccination", "A desktop app I built to collect patient vaccination data, now in use at EPSP Annaba. It adds, edits, searches and exports records, with form validation, a dashboard of totals and vaccine breakdowns, a medical-history checklist and dark/light mode. Records are saved to CSV files with atomic writes, so a crash can't corrupt the data.": "Une application de bureau que j'ai développée pour collecter les données de vaccination des patients, désormais utilisée à l'EPSP d'Annaba. Elle permet d'ajouter, modifier, rechercher et exporter des dossiers, avec validation des formulaires, un tableau de bord des totaux et des vaccins, une liste d'antécédents médicaux et un mode sombre/clair. Les dossiers sont enregistrés dans des fichiers CSV avec écriture atomique, pour qu'un plantage ne puisse pas corrompre les données.", "Video Editing": "Montage vidéo", "Video": "Vidéo", "AI & Data": "IA & Données", "Education": "Formation", "Certificates": "Certificats", "About": "À propos", "editor": "monteur", "engineer": "ingénieur", "Annaba, Algeria - freelance since 2021": "Annaba, Algérie - freelance depuis 2021", "Video Editor": "Monteur vidéo", "AI Engineer & Data Analyst": "Ingénieur IA & Analyste de données", "I cut footage into stories on Fiverr and Upwork, and I build models and dashboards that make sense of data. Five-plus years editing, 200+ delivered projects, and a computer science background from Badji Mokhtar University, Annaba.": "Je transforme des rushes en histoires sur Fiverr et Upwork, et je conçois des modèles et des tableaux de bord qui donnent du sens aux données. Plus de cinq ans de montage, plus de 200 projets livrés et une formation en informatique à l'Université Badji Mokhtar, Annaba.", "years editing": "années de montage", "video projects delivered": "projets vidéo livrés", "disciplines, one workflow": "disciplines, un seul flux de travail", "Video editing work": "Travaux de montage vidéo", "A sample of client work across YouTube, e-commerce and social - replace with your own real projects and links.": "Un échantillon de travaux clients sur YouTube, l'e-commerce et les réseaux sociaux - à remplacer par vos propres projets et liens.", "Companies & YouTube channels I've edited for": "Entreprises et chaînes YouTube pour lesquelles j'ai monté des vidéos", "Past Projects": "Projets réalisés", "Watch video ↗": "Voir la vidéo ↗", "Watch video": "Voir la vidéo", "Channel": "Chaîne", "Tools": "Outils", "Craft": "Savoir-faire", "Compilation edit highlighting fair-play moments from top-level football, cut for pacing and emotional beats.": "Montage compilation mettant en avant des moments de fair-play du football de haut niveau, rythmé pour faire ressortir les émotions.", "A compilation of football's most respectful moments - fair play and gestures between rivals - paced to let the emotion land.": "Une compilation des moments les plus respectueux du football - fair-play et gestes entre rivaux - rythmée pour laisser toute sa place à l'émotion.", "A season highlights reel of the best goals so far, cut to the rhythm of the action with dynamic zooms and punchy transitions.": "Un résumé de saison des plus beaux buts à ce jour, monté au rythme de l'action avec des zooms dynamiques et des transitions percutantes.", "Standout goals worth a second look, edited with a stylized color treatment that keeps the focus on the strike.": "Des buts marquants à revoir, montés avec un traitement colorimétrique stylisé qui garde l'attention sur la frappe.", "Long-range goals from 2023 in a fast-paced edit built around the strike, the flight of the ball and the reaction.": "Des buts de loin de 2023 dans un montage rapide construit autour de la frappe, de la trajectoire du ballon et de la réaction.", "A house-flipping vlog kicking off a new project with a walk-through of the property.": "Un vlog de rénovation-revente qui lance un nouveau projet avec une visite de la propriété.", "The next episode in the house-flip series, following a new property project.": "L'épisode suivant de la série de rénovation-revente, autour d'un nouveau projet immobilier.", "A real estate vlog breaking down two months of results.": "Un vlog immobilier qui détaille deux mois de résultats.", "Color grading": "Étalonnage", "Motion graphics": "Motion design", "Sound design": "Design sonore", "Short-form & long-form": "Formats courts et longs", "Machine learning": "Apprentissage automatique", "Data visualization": "Visualisation de données", "Model deployment": "Déploiement de modèles", "Statistical analysis": "Analyse statistique", "AI & data work": "Travaux en IA et données", "Applied machine learning and analysis projects - swap in your real notebooks, repos and dashboards.": "Projets appliqués d'apprentissage automatique et d'analyse - à remplacer par vos propres notebooks, dépôts et tableaux de bord.", "Customer churn prediction model": "Modèle de prédiction du churn client", "Sales analytics dashboard": "Tableau de bord d'analyse des ventes", "Video-editing automation script": "Script d'automatisation du montage vidéo", "Sahti - medical appointment booking platform": "Sahti - plateforme de prise de rendez-vous médicaux", "My Bachelor's degree thesis project: a full-stack website where patients book appointments with doctors, with a database backing doctor schedules and bookings.": "Mon projet de mémoire de licence : un site web full-stack où les patients prennent rendez-vous avec des médecins, avec une base de données gérant les plannings et les réservations.", "GitHub repo ↗": "Dépôt GitHub ↗", "Web development": "Développement web", "Sentiment analysis on reviews": "Analyse de sentiment sur des avis", "Gradient-boosted classifier on subscription data, with a feature-importance dashboard for the ops team.": "Classifieur à gradient boosting sur des données d'abonnement, avec un tableau de bord d'importance des variables pour l'équipe opérationnelle.", "End-to-end pipeline from raw CSV exports to a live Power BI dashboard tracking regional performance.": "Pipeline complet, des exports CSV bruts à un tableau de bord Power BI en direct suivant les performances régionales.", "A Python tool that auto-detects silences and jump-cuts raw footage, cutting first-pass editing time in half.": "Un outil Python qui détecte automatiquement les silences et effectue des jump cuts sur les rushes, réduisant de moitié le temps du premier montage.", "Fine-tuned transformer model classifying product reviews, deployed behind a lightweight API.": "Modèle transformer affiné pour classer des avis produits, déployé derrière une API légère.", "My academic path at Badji Mokhtar University, Annaba - the foundation behind both the AI engineering and the data work.": "Mon parcours universitaire à l'Université Badji Mokhtar, Annaba - la base de mon travail en ingénierie IA comme en analyse de données.", "Badji Mokhtar University": "Université Badji Mokhtar", "Annaba, Algeria": "Annaba, Algérie", "Master's degree": "Master", "Bachelor's degree": "Licence", "Computer Science": "Informatique", "Field of study · Specialization": "Domaine d'études · Spécialisation", "Thesis, key modules or honors - to be filled in from your CV": "Mémoire, modules clés ou distinctions - à compléter depuis votre CV", "Key modules, projects or honors - to be filled in from your CV": "Modules clés, projets ou distinctions - à compléter depuis votre CV", "Courses and certifications behind my editing work - from Premiere Pro fundamentals to motion graphics in After Effects.": "Les formations et certifications derrière mon travail de montage - des bases de Premiere Pro au motion design dans After Effects.", "Video editing": "Montage vidéo", "Issued 2020": "Délivré en 2020", "Issued 2019": "Délivré en 2019", "I split my time between two crafts that turn out to feed each other more than you'd expect: editing video teaches me to think in timelines and pacing, and engineering teaches me to think in data and systems. Clients hire me for one or the other - increasingly, for both at once, since I can automate parts of a post-production pipeline the same way I'd build any other data tool.": "Je partage mon temps entre deux métiers qui se nourrissent l'un l'autre plus qu'on ne le croirait : le montage vidéo m'apprend à penser en timelines et en rythme, et l'ingénierie m'apprend à penser en données et en systèmes. Mes clients font appel à moi pour l'un ou l'autre - de plus en plus pour les deux à la fois, car je peux automatiser des étapes d'une chaîne de post-production comme je construirais n'importe quel autre outil de données.", "Based in Annaba, Algeria, working with clients worldwide through Fiverr and Upwork.": "Basé à Annaba, en Algérie, je travaille avec des clients du monde entier via Fiverr et Upwork.", "Let's work together": "Travaillons ensemble", "Whether it's a video that needs cutting or data that needs making sense of - reach out.": "Qu'il s'agisse d'une vidéo à monter ou de données à analyser - contactez-moi.", "Email": "E-mail", "© 2026 Abdeldjalil Halisse. Built as a starting point - replace placeholder text, projects and links with your own.": "© 2026 Abdeldjalil Halisse. Conçu comme point de départ - remplacez le texte, les projets et les liens d'exemple par les vôtres.", "Back to top": "Retour en haut", "Scroll left": "Défiler vers la gauche", "Scroll right": "Défiler vers la droite", "Previous projects": "Projets précédents", "Next projects": "Projets suivants", "Previous": "Précédent", "Next": "Suivant", "Close": "Fermer", "Accent focus": "Focus de l'accent", "Language": "Langue", "Portrait of Abdeldjalil Halisse": "Portrait d'Abdeldjalil Halisse", "Abdeldjalil Halisse - AI Engineer & Video Editor": "Abdeldjalil Halisse - Ingénieur IA & Monteur vidéo", "AI & Data Analysis": "IA & Données", "I build models and dashboards that make sense of data - from machine-learning pipelines to Power BI reporting. Master's-level training in artificial intelligence and information processing at Badji Mokhtar University, Annaba.": "Je conçois des modèles et des tableaux de bord qui donnent du sens aux données - des pipelines de machine learning aux rapports Power BI. Un Master en intelligence artificielle et traitement de l'information à l'Université Badji Mokhtar, Annaba.", "MSc": "Master", "in Artificial Intelligence": "en Intelligence Artificielle", "SQL & Power BI for data work": "SQL et Power BI pour l'analyse de données", "Hero slides": "Diaporama d'accueil", "AI & Data Science Work": "Travaux en IA et science des données", "VaxCluster - COVID-19 vaccine side-effect prediction app": "Application de prédiction des effets secondaires du vaccin COVID-19", "My Master's degree thesis project: a full-stack web app that collects patient data and shows the probability of each side effect, along with their average. Prediction module in Python, SQL database managed through PHP, HTML/CSS/JavaScript front end.": "Mon projet de thèse de Master : une application web full-stack qui collecte les données des patients et affiche la probabilité de chaque effet secondaire, ainsi que leur moyenne. Module de prédiction en Python, base de données SQL gérée via PHP, interface en HTML/CSS/JavaScript.", "Clustering for side-effect prediction": "Clustering pour la prédiction des effets secondaires", "Compared three clustering methods (K-Means, Gaussian Mixture Models and agglomerative clustering) in Python to predict vaccine side effects, with each model's probabilities shown side by side in the app.": "Comparaison de trois méthodes de clustering (K-Means, modèles de mélange gaussien et clustering agglomératif) en Python pour prédire les effets secondaires du vaccin, avec les probabilités de chaque modèle affichées côte à côte dans l'application.", "Medical records digitization & data preparation": "Numérisation des dossiers médicaux et préparation des données", "Digitized 500+ handwritten patient records into a centralized database, cutting data access time by 70%. Cleaned the data before modeling: duplicate removal, normalization and encoding.": "Numérisation de plus de 500 dossiers patients manuscrits dans une base de données centralisée, réduisant le temps d'accès aux données de 70 %. Nettoyage des données avant la modélisation : suppression des doublons, normalisation et encodage.", "Internal workflow automation": "Automatisation des flux de travail internes", "Automated internal management workflows at the health establishment during the internship, improving day-to-day operational efficiency.": "Automatisation des flux de gestion internes de l'établissement de santé pendant le stage, pour améliorer l'efficacité opérationnelle au quotidien.", "COVID-19 vaccine side-effects data analysis": "Analyse de données des effets secondaires des vaccins COVID-19", "View notebook ↗": "Voir le notebook ↗", "Supervised & unsupervised learning": "Apprentissage supervisé et non supervisé", "Data analysis & management": "Analyse et gestion de données", "Data cleaning & preprocessing": "Nettoyage et prétraitement des données", "Video Editing Work": "Travaux de montage vidéo", "A sample of client work across YouTube, e-commerce and social.": "Un échantillon de travaux clients sur YouTube, l'e-commerce et les réseaux sociaux.", "Master 2 · Artificial Intelligence and Information Processing": "Master 2 · Intelligence Artificielle et Traitement de l'information", "Thesis: « Étude sur les effets secondaires du vaccin COVID en utilisant l'IA » (a study of COVID vaccine side effects using AI)": "Mémoire : « Étude sur les effets secondaires du vaccin COVID en utilisant l'IA »", "Applied in a Feb–Mar 2024 internship at EPSP Annaba: clustering-based side-effect prediction and a full web app": "Appliqué lors d'un stage de février–mars 2024 à l'EPSP d'Annaba : prédiction des effets secondaires par clustering et application web complète", "Fiverr profile": "Profil Fiverr", "GitHub profile": "Profil GitHub", "Exploratory analysis of 372 patient records on COVID-19 vaccine side effects, in Python. Cluster count chosen with the silhouette score, then K-Means, agglomerative and Gaussian mixture clustering, visualized with PCA and dendrograms. Each cluster is profiled by side effect, vaccine (Sputnik V, Sinovac, Sinopharm, AstraZeneca), vaccination site, pre-existing conditions and age. Fever, fatigue and muscle pain were the most frequent side effects.": "Analyse exploratoire de 372 dossiers patients sur les effets secondaires des vaccins COVID-19, en Python. Nombre de clusters choisi avec le score de silhouette, puis clustering K-Means, agglomératif et par mélange gaussien, visualisés avec l'ACP et des dendrogrammes. Chaque cluster est décrit par effet secondaire, vaccin (Sputnik V, Sinovac, Sinopharm, AstraZeneca), lieu de vaccination, pathologies associées et âge. La fièvre, la fatigue et les douleurs musculaires sont les effets secondaires les plus fréquents.", "Online now": "En ligne", "Hi! I'm": "Salut ! Je suis", "See what I can do": "Voir mes réalisations", "Hire me on Fiverr ↗": "Me contacter sur Fiverr ↗", "My Projects": "Mes projets", "My Skillset": "Mes compétences", "Connect with me": "Contactez-moi", "Selected work": "Réalisations", "Professional journey": "Parcours professionnel", "Credentials": "Certifications", "About me": "À propos de moi", "All": "Tout", "Web apps": "Applications web", "Desktop app": "Application de bureau", "Data analysis": "Analyse de données", "Toolbox": "Boîte à outils", "My creative toolbox": "Ma boîte à outils créative", "The software and skills I use every day, across video and data work.": "Les logiciels et compétences que j'utilise au quotidien, en vidéo comme en données.", "Cutting, pacing and finishing client videos": "Montage, rythme et finition des vidéos clients", "Motion graphics and visual effects": "Motion design et effets visuels", "Colour grading and final polish": "Étalonnage et finitions", "Audio cleanup and sound design": "Nettoyage audio et design sonore", "Data work and machine-learning pipelines": "Traitement de données et pipelines de machine learning", "Querying and managing databases": "Interrogation et gestion de bases de données", "Dashboards and reporting": "Tableaux de bord et reporting", "Clustering and prediction models": "Modèles de clustering et de prédiction", "Cleaning and preparing data": "Nettoyage et préparation des données", "Full-stack web apps with MySQL": "Applications web full-stack avec MySQL", "Charts and data visualisation": "Graphiques et visualisation de données", "Reach out anytime": "Contactez-moi à tout moment", "Let's stay connected": "Restons en contact", "Send a message": "Envoyer un message", "projects delivered": "projets livrés", "Hover my head": "Survolez ma tête", "Tap my head": "Touchez ma tête", "Skip to content": "Aller au contenu", "A promo video for the Masmas food delivery app, with a call to download it from the App Store and Google Play.": "Une vidéo promotionnelle de l'application de livraison de repas Masmas, avec un appel à la télécharger sur l'App Store et Google Play.", "A presentation video for the Travel Given Solutions website, inviting viewers to book their next trip.": "Une vidéo de présentation du site Travel Given Solutions, qui invite les spectateurs à réserver leur prochain voyage.", "A promo video for the AZON food delivery app, with a call to download it.": "Une vidéo promotionnelle de l'application de livraison de repas AZON, avec un appel à la télécharger.", "A promo video for the Screen NSW app, showing the app on a phone screen.": "Une vidéo promotionnelle de l'application Screen NSW, qui montre l'application sur l'écran d'un téléphone.", "Show the tools I work with": "Afficher les outils que j'utilise", "Filter projects": "Filtrer les projets", "Filter tools": "Filtrer les outils", "Clients and channels": "Clients et chaînes"};
 const norm = function(t){ return t.replace(/\s+/g, ' ').trim().replace(/\u2019/g, "'"); };
 const SKIP = '#videoGrid h3, .tag, .channel-item, script, style, noscript, #cvOverlay';
 let lang = 'en';
@@ -3902,7 +3935,19 @@ if (el.hasAttribute(a) && FR[norm(el.getAttribute(a))] !== undefined) attrs.push
 });
 const titleEn = document.title;
 function tr(str){ return (lang === 'fr' && FR[norm(str)] !== undefined) ? FR[norm(str)] : str; }
-window.__i18n = { t: tr, lang: function(){ return lang; } };
+const DYN = [[/^Slide (\d+)$/, 'Diapositive $1'], [/^Watch video: (.+)$/, 'Voir la vidéo : $1']];
+function relabel(){
+document.querySelectorAll('[aria-label]').forEach(function(el){
+const en = el.dataset.en || el.getAttribute('aria-label'), k = norm(en);
+let out = null;
+if (FR[k] !== undefined) out = FR[k];
+else for (let i = 0; i < DYN.length; i++) if (DYN[i][0].test(en)) { out = en.replace(DYN[i][0], DYN[i][1]); break; }
+if (out === null) return;
+el.dataset.en = en;
+el.setAttribute('aria-label', lang === 'fr' ? out : en);
+});
+}
+window.__i18n = { t: tr, lang: function(){ return lang; }, relabel: relabel };
 function apply(){
 textNodes.forEach(function(e){
 if (lang === 'fr') {
@@ -3918,6 +3963,7 @@ const on = b.dataset.lang === lang;
 b.classList.toggle('active', on);
 b.setAttribute('aria-pressed', on ? 'true' : 'false');
 });
+relabel();
 }
 function setLang(l, save){
 lang = (l === 'fr') ? 'fr' : 'en';
@@ -4034,9 +4080,9 @@ const box = el('div'); box.appendChild(lab); box.appendChild(t);
 right.appendChild(box);
 });
 group(tt('Tools'), tools);
-if (watch) {
+if (watch && watch.getAttribute('href')) {
 const w = el('a', 'cv-watch');
-if (watch.getAttribute('href')) { w.href = watch.href; w.target = '_blank'; w.rel = 'noopener'; }
+w.href = watch.href; w.target = '_blank'; w.rel = 'noopener';
 w.textContent = watch.textContent.trim();
 right.appendChild(w);
 }
@@ -4054,7 +4100,9 @@ const next = buildSlide(list[idx]);
 const old = current;
 current = next;
 stage.appendChild(next);
-document.getElementById('cvPanel').scrollTop = 0;
+const panel = document.getElementById('cvPanel'), ttl = next.querySelector('h3');
+panel.scrollTop = 0;
+if (ttl) panel.setAttribute('aria-label', ttl.textContent);
 if (!old || !dir || reduce || !next.animate) { if (old) old.remove(); return; }
 const dist = Math.min(120, stage.offsetWidth * 0.12);
 const opts = { duration: 480, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both' };
@@ -4070,28 +4118,45 @@ const aIn = next.animate([
 anims = [aOut, aIn];
 aIn.onfinish = function(){ if (current === next) settle(); };
 }
-function open(sectionSel, startIndex){
+let lastFocus = null;
+function open(sectionSel, startIndex, opener){
+lastFocus = opener || document.activeElement;
 list = cardsIn(sectionSel);
 idx = startIndex;
 stage.innerHTML = ''; current = null;
 show(0);
+overlay.removeAttribute('inert');
 overlay.classList.add('open');
 overlay.setAttribute('aria-hidden', 'false');
 document.body.style.overflow = 'hidden';
+closeBtn.focus();
 }
 function close(){
 overlay.classList.remove('open');
 overlay.setAttribute('aria-hidden', 'true');
+overlay.setAttribute('inert', '');
 document.body.style.overflow = '';
+if (lastFocus && lastFocus.focus) lastFocus.focus();
+lastFocus = null;
 }
 function step(dir){ idx = (idx + dir + list.length) % list.length; show(dir); }
 function wire(sectionSel){
-cardsIn(sectionSel).forEach(function(card, i){
+cardsIn(sectionSel).forEach(function(card, n){
+const h = card.querySelector('h3');
+if (h) { h.id = h.id || (sectionSel.replace(/\W+/g, '') + '-t' + n); card.setAttribute('role', 'group'); card.setAttribute('aria-labelledby', h.id); }
+card.tabIndex = 0;
+card.setAttribute('aria-haspopup', 'dialog');
+function launch(){ const i = cardsIn(sectionSel).indexOf(card); if (i > -1) open(sectionSel, i, card); }   // index from the *currently shown* list, so filters can't break it
 card.addEventListener('click', function(e){
 const link = e.target.closest('a');
 if (link && link.classList.contains('tag-channel')) return; // let channel chips navigate normally
+if (link && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)) return;   // keep "open in new tab"
 e.preventDefault();
-open(sectionSel, i);
+launch();
+});
+card.addEventListener('keydown', function(e){
+if (e.target !== card || (e.key !== 'Enter' && e.key !== ' ')) return;
+e.preventDefault(); launch();
 });
 });
 }
@@ -4106,6 +4171,13 @@ if (!overlay.classList.contains('open')) return;
 if (e.key === 'Escape') close();
 if (e.key === 'ArrowLeft') step(-1);
 if (e.key === 'ArrowRight') step(1);
+if (e.key === 'Tab') {   // keep focus inside the dialog
+const f = Array.prototype.slice.call(overlay.querySelectorAll('button, a[href]')).filter(function(x){ return x.offsetParent !== null; });
+if (!f.length) return;
+const first = f[0], last = f[f.length - 1];
+if (e.shiftKey && (document.activeElement === first || !overlay.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+else if (!e.shiftKey && (document.activeElement === last || !overlay.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+}
 });
 let tx = null, ty = null;
 stage.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
@@ -4236,7 +4308,7 @@ var frag = document.createDocumentFragment();
 list.forEach(function(d){
 var a = document.createElement('a'); a.className = 'cm-item' + (dup ? ' dup' : ''); a.href = d.href; a.target = '_blank'; a.rel = 'noopener';
 if (dup) { a.setAttribute('aria-hidden', 'true'); a.tabIndex = -1; }
-var img = new Image(); img.className = 'cm-avatar'; img.alt = dup ? '' : d.alt; img.src = d.src; img.decoding = 'async';
+var img = new Image(); img.className = 'cm-avatar'; img.alt = dup ? '' : d.alt; img.src = d.src; img.decoding = 'async'; img.loading = 'lazy';
 var s = document.createElement('span'); s.textContent = d.name;
 a.appendChild(img); a.appendChild(s); frag.appendChild(a);
 });
@@ -4299,14 +4371,14 @@ play: S('<circle cx="12" cy="12" r="9"/><path d="m10 8.5 5.5 3.5-5.5 3.5z" fill=
 wave: S('<path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/>'),
 cut: S('<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5 20 18M8 16.5 20 6"/>')
 };
-var AI = [['i','neural',-30,-24,-8,.04,11],['l','py',30,-24,8,.08,10.5],
-['i','chart',-42,-13,6,.14,10],['l','sql',42,-13,-6,.18,10.5],
-['i','db',-45,0,-5,.24,10],['l','bi',45,0,5,.28,10.5],
-['i','lens',-40,12,7,.34,10],['i','scatter',40,12,-7,.38,10]];
-var VID = [['i','clap',-30,-24,-8,.04,11],['l','pr',30,-24,8,.08,10.5],
-['i','timeline',-42,-13,6,.14,10],['l','ae',42,-13,-6,.18,10.5],
-['i','film',-45,0,-5,.24,10],['i','play',45,0,5,.28,10],
-['i','wave',-40,12,7,.34,10],['i','cut',40,12,-7,.38,10]];
+var AI = [['i','neural',-2.4,-1.8,-8,.04,10.5],['l','py',2.4,-1.8,8,.08,10.5],
+['i','chart',-2.9,-.6,6,.14,10.5],['l','sql',2.9,-.6,-6,.18,10.5],
+['i','db',-2.9,.6,-5,.24,10.5],['l','bi',2.9,.6,5,.28,10.5],
+['i','lens',-2.4,1.8,7,.34,10.5],['i','scatter',2.4,1.8,-7,.38,10.5]];
+var VID = [['i','clap',-2.4,-1.8,-8,.04,10.5],['l','pr',2.4,-1.8,8,.08,10.5],
+['i','timeline',-2.9,-.6,6,.14,10.5],['l','ae',2.9,-.6,-6,.18,10.5],
+['i','film',-2.9,.6,-5,.24,10.5],['i','play',2.9,.6,5,.28,10.5],
+['i','wave',-2.4,1.8,7,.34,10.5],['i','cut',2.4,1.8,-7,.38,10.5]];
 function set(cls, list){
 var w = el('div', 'ph-set ' + cls);
 list.forEach(function(d, n){
@@ -4323,6 +4395,8 @@ var items = el('div', 'ph-items'); items.setAttribute('aria-hidden', 'true'); it
 var hot = el('div', 'ph-hot'); hot.setAttribute('role', 'button'); hot.setAttribute('tabindex', '0'); hot.setAttribute('aria-label', 'Show the tools I work with'); hot.setAttribute('aria-pressed', 'false');
 var hint = el('div', 'ph-hint', '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3l14 7-6 2-2 6z"/></svg><span class="hov">Hover my head</span><span class="tap">Tap my head</span>'); hint.setAttribute('aria-hidden', 'true');
 [items, hot, hint].forEach(function(n){ box.appendChild(n); });
+function hintText(){ var t = window.__i18n ? window.__i18n.t : function(x){ return x; }; hint.querySelector('.hov').textContent = t('Hover my head'); hint.querySelector('.tap').textContent = t('Tap my head'); }
+hintText(); document.addEventListener('langchange', hintText);
 var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 var isTouch = !!(window.matchMedia && window.matchMedia('(hover: none)').matches);
 var open = false, holding = false, closeT = 0, touchT = 0;
@@ -4397,9 +4471,17 @@ stage.addEventListener('pointercancel', reset);
 </script>
 <script>
 (function(){
-  if (!('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('anim-off', !e.isIntersecting); }); }, { rootMargin: '160px 0px' });
-  document.querySelectorAll('.hero-fx, .hero-portrait, .band, .cm, .about-card-wrap').forEach(function(n){ io.observe(n); });
+  // pause the heavy decorative animations while their section is off-screen (saves CPU/GPU while scrolling)
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ e.target.classList.toggle('anim-off', !e.isIntersecting); }); }, { rootMargin: '120px 0px' });
+    document.querySelectorAll('header.hero, .band, .cm, .about-card-wrap').forEach(function(el){ io.observe(el); });
+  }
+  // safety net: any link that still has no accessible name takes it from its card title
+  document.querySelectorAll('a[href]').forEach(function(a){
+    if (a.textContent.trim() || a.getAttribute('aria-label') || a.querySelector('img[alt]:not([alt=""])')) return;
+    var c = a.closest('.card'), h = c && c.querySelector('h3'); if (h) a.setAttribute('aria-label', 'Open: ' + h.textContent.trim());
+  });
+  if (window.__i18n && window.__i18n.relabel) window.__i18n.relabel();   // translate labels created after the translator first ran
 })();
 </script>
 </body>
