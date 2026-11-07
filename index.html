@@ -17,6 +17,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/img-2fed18f5ce.png">
 <style>
+/* ==========================================================================
+   MINIMALISM & SWISS STYLE DESIGN SYSTEM (portfolio-deploy06)
+   - Inspired by International Typographic Style (Muller-Brockmann, Hofmann)
+   - Strict mathematical grid, geometric hierarchy, grotesque typography
+   - Restrained high-contrast monochromatic base + dual-discipline Swiss accents
+   - 100% WCAG 2.2 AA / AAA contrast compliance across Dark & Light modes
+   ========================================================================== */
 
 :root {
   box-sizing: border-box;
@@ -1245,7 +1252,7 @@ header.hero:not(.is-ai) .pf-vid {
   height: 0;
   pointer-events: none;
   --s: max(34px, 10.5cqw);   /* icon size */
-  --cy: 17cqw;               /* vertical centre of the icon columns, level with the head */
+  --cy: 18cqw;               /* centre of the icon columns = centre of the head (hover zone) */
 }
 
 .ph-set { display: none; }
@@ -1275,7 +1282,7 @@ header.hero:not(.is-ai) .ph-set.vid { display: block; }
 .ph-in {
   width: 100%;
   height: 100%;
-  border-radius: var(--radius-xs);
+  border-radius: calc(var(--s) * .3125);   /* squircle-style corners; the logo tiles use the same 15/48 ratio */
   display: grid;
   place-items: center;
   position: relative;
@@ -4371,21 +4378,35 @@ play: S('<circle cx="12" cy="12" r="9"/><path d="m10 8.5 5.5 3.5-5.5 3.5z" fill=
 wave: S('<path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/>'),
 cut: S('<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5 20 18M8 16.5 20 6"/>')
 };
-var AI = [['i','neural',-2.4,-1.8,-8,.04,10.5],['l','py',2.4,-1.8,8,.08,10.5],
-['i','chart',-2.9,-.6,6,.14,10.5],['l','sql',2.9,-.6,-6,.18,10.5],
-['i','db',-2.9,.6,-5,.24,10.5],['l','bi',2.9,.6,5,.28,10.5],
-['i','lens',-2.4,1.8,7,.34,10.5],['i','scatter',2.4,1.8,-7,.38,10.5]];
-var VID = [['i','clap',-2.4,-1.8,-8,.04,10.5],['l','pr',2.4,-1.8,8,.08,10.5],
-['i','timeline',-2.9,-.6,6,.14,10.5],['l','ae',2.9,-.6,-6,.18,10.5],
-['i','film',-2.9,.6,-5,.24,10.5],['i','play',2.9,.6,5,.28,10.5],
-['i','wave',-2.4,1.8,7,.34,10.5],['i','cut',2.4,1.8,-7,.38,10.5]];
+var AI = [['i','neural'],['l','py'],['i','chart'],['l','sql'],['i','db'],['l','bi'],['i','lens'],['i','scatter']];
+var VID = [['i','clap'],['l','pr'],['i','timeline'],['l','ae'],['i','film'],['i','play'],['i','wave'],['i','cut']];
+/* Icons sit BESIDE the head, never above it: two staggered columns on each side (an outer and an inner one), point-mirrored
+   so the left and right sides don't look like copies. Coordinates are in icon sizes from the head's centre; the entries
+   alternate left / right, top to bottom. Inner columns stay clear of the ears, outer columns stay inside small phone screens. */
+var SPOTS = [[-3.7,-1.8],[2.85,-1.8],[-2.85,-.6],[3.7,-.6],[-3.7,.6],[2.85,.6],[-2.85,1.8],[3.7,1.8]];
+function spot(n){ return { x: SPOTS[n][0], y: SPOTS[n][1], d: +(.04 + (n >> 1) * .08 + (n & 1 ? .03 : 0)).toFixed(3) }; }
+/* the logo tiles get their own, rounder copies of the shared SVG symbols (the toolbox section keeps the originals) */
+function roundLogo(id){
+var nid = 'lg-' + id + '-pop', src = document.getElementById('lg-' + id);
+if (!src) return 'lg-' + id;
+if (!document.getElementById(nid)) {
+var c = src.cloneNode(true); c.id = nid;
+Array.prototype.forEach.call(c.querySelectorAll('[id]'), function(n){ n.removeAttribute('id'); });   // inner ids (e.g. a gradient) stay unique; url(#...) still resolves to the original
+Array.prototype.forEach.call(c.querySelectorAll('rect'), function(r){
+var rx = parseFloat(r.getAttribute('rx'));
+if (rx === 11) r.setAttribute('rx', '15'); else if (rx === 9.6) r.setAttribute('rx', '13.6');   // 15 - half the 1.4 stroke inset, keeps the ring concentric
+});
+src.parentNode.appendChild(c);
+}
+return nid;
+}
 function set(cls, list){
 var w = el('div', 'ph-set ' + cls);
 list.forEach(function(d, n){
-var it = el('div', 'ph-item'); it.style.cssText = '--tx:' + d[2] + ';--ty:' + d[3] + ';--rot:' + d[4] + 'deg;--d:' + d[5] + 's;--sz:' + d[6] + ';';
+var p = spot(n), it = el('div', 'ph-item'); it.style.cssText = '--tx:' + p.x + ';--ty:' + p.y + ';--d:' + p.d + 's;';
 var inn = el('div', 'ph-in ' + (d[0] === 'l' ? 'ph-logo' : d[0] === 'm' ? 'ph-mono' : 'ph-ico'));
 inn.style.setProperty('--fd', (4 + (n % 4) * .7).toFixed(1) + 's'); inn.style.setProperty('--fl', (-n * .6).toFixed(1) + 's');
-if (d[0] === 'l') inn.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#lg-' + d[1] + '"/></svg>';
+if (d[0] === 'l') inn.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#' + roundLogo(d[1]) + '"/></svg>';
 else if (d[0] === 'm') { inn.style.setProperty('--bg-c', d[7]); inn.style.setProperty('--fg-c', d[8]); inn.textContent = d[1]; } else inn.innerHTML = ICON[d[1]];
 it.appendChild(inn); w.appendChild(it);
 });
